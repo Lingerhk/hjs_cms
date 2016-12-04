@@ -17,10 +17,10 @@ if CUR_ENV ==  EnvEnum.T_DEV:
     
     BaseConf.IS_CTR_LOG     =   True
     BaseConf.LOG_LEVEL      =   1
-    BaseConf.SQL_HOST       =   "222.24.62.48"
+    BaseConf.SQL_HOST       =   "222.24.XX.xx"
     BaseConf.SQL_PORT       =   3306
     BaseConf.SQL_USER       =   "hjs_user"
-    BaseConf.SQL_PASSWD     =   "hjs@cms"
+    BaseConf.SQL_PASSWD     =   "xxxx"
     BaseConf.SQL_DB         =   "hjs_cms_db"
     
 
@@ -31,5 +31,5 @@ else:
     BaseConf.SQL_PORT       =   3306
     BaseConf.SQL_USER       =   "root"
     BaseConf.SQL_PASSWD     =   "123456"
-    BaseConf.SQL_DB         =   "os_db"
+    BaseConf.SQL_DB         =   "hjs_cms_db"
 
