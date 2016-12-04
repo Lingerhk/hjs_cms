@@ -8,15 +8,20 @@ if __name__ == "__main__":
     import sys
     import os
 
-    sys.path.append("../base")
     sys.path.append("..")
+    sys.path.append("../base")
     sys.path.append("../dao")
 
 from web.utils import *
+from hjs_cfg import *
 from bs_util import *
 from hjs_user_dao import *
-from hjs_order_dao import *
-from hjs_custom_dao import *
+
+
+class UserPriv:
+    VIEW = 1
+    USER = 2
+    ADMIN = 3
 
 
 class HjsUser:
@@ -40,6 +45,65 @@ class HjsUser:
             userList.append(user_info)
 
         return True, userList
+
+
+    @staticmethod
+    def user_add(nickName, userName, passWord, Phone, Priv):
+        bRet, sRet = HjsUserDao.insert_node_user(nickName, userName, passWord, Phone, Priv)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
+
+
+    @staticmethod
+    def user_update(uId, nickName, userName, passWord, Phone, Priv):
+        bRet, sRet = HjsUserDao.update_node_user(uId, nickName, userName, passWord, Phone, Priv)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
+
+
+    @staticmethod
+    def user_del(userName, uId):
+        bRet, sRet = HjsUserDao.delete_node_user(userName, uId)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
+
+
+    @staticmethod
+    def is_admin(userName):
+        bRet, sRet = HjsUserDao.query_node_by_username(userName)
+        if not bRet:
+            return False, sRet
+        if not sRet['privilege']:
+            return False, 'get user priv error'
+        if sRet['privilege'] != UserPriv.ADMIN: # is_admin user
+            return True, False
+        
+        return True, True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

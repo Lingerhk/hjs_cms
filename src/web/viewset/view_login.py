@@ -5,9 +5,9 @@
 # desc: login view
 
 
+import web
 from view_base import *
 from hjs_user_dao import *
-import web
 
 class ViewLogin(ViewBase):
     def __init__(self):

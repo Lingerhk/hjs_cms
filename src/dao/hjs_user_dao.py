@@ -25,8 +25,8 @@ if __name__ == "__main__":
 
     sys.path.append("..")
     sys.path.append("../base")
-    from hjs_cfg import *
 
+from hjs_cfg import *
 from bs_util import *
 from bs_database_pid import *
 
@@ -72,10 +72,10 @@ class HjsUserDao:
 
 
     @staticmethod
-    def insert_node_user(userName, nickName, passWord, Phone, Priv):
+    def insert_node_user(nickName, userName, passWord, Phone, Priv):
         dataBase = DataBase()
-        sql = "insert into tb_user(username, nickname, password, phone, priv) values(%s, %s, %s, %s, %s)"
-        param = (userName, nickName, passWord, Phone, Priv)
+        sql = "insert into tb_user(nickname, username, password, phone, privilege) values(%s, %s, %s, %s, %s)"
+        param = (nickName, userName, passWord, Phone, Priv)
 
         bRet, sRet = dataBase.insert_data(sql, param)
         if not bRet:
@@ -85,10 +85,23 @@ class HjsUserDao:
 
 
     @staticmethod
-    def delete_node_user(uid):
+    def update_node_user(uId, nickName, userName, passWord, Phone, Priv):
         dataBase = DataBase()
-        sql = "delete from tb_user where uid = %s"
-        param = (uid, )
+        sql = "update tb_user set nickname = %s, username = %s, password = %s, phone = %s, privilege= %s where uid = %s"
+        param = (nickName, userName, passWord, Phone, Priv, uId)
+
+        bRet, sRet = dataBase.update_data(sql, param)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
+
+
+    @staticmethod
+    def delete_node_user(userName, uId):
+        dataBase = DataBase()
+        sql = "delete from tb_user where username = %s and uid = %s"
+        param = (userName, uId)
 
         bRet, sRet = dataBase.delete_data(sql, param)
         if not bRet:

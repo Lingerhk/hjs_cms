@@ -7,9 +7,6 @@
 
 from view_base import *
 from hjs_user import *
-from hjs_user_dao import *
-from hjs_order_dao import *
-from hjs_custom_dao import *
 
 
 class ViewUserList(ViewBase):
@@ -17,17 +14,27 @@ class ViewUserList(ViewBase):
         if not self.check_login():
             Log.err("user not login")
             return web.seeother("/login")
+        
         return render.user_list()
+
 
 class ViewUserAdd(ViewBase):
     def GET(self):
         if not self.check_login():
             Log.err("user not login")
             return web.seeother("/login")
+        
         return render.user_add()
+
 
 class ViewApiUserList(ViewBase):
     def _deal_user_list(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission do user list'
+
         return HjsUser.user_list(self.get_user_name())
 
     def GET(self):
@@ -36,7 +43,7 @@ class ViewApiUserList(ViewBase):
 
         bRet, sRet = self.process(self._deal_user_list)
         if not bRet:
-            Log.err("deal_user_del: %s" % (str(sRet)))
+            Log.err("deal_user_list: %s" % (str(sRet)))
             return self.make_error(sRet)
 
         return self.make_response(sRet)
@@ -45,29 +52,124 @@ class ViewApiUserList(ViewBase):
 class ViewApiUserAdd(ViewBase):
     def __init__(self):
         self._rDict = {
-            "user_name": {'n': 'userName', 't': str, 'v': None}
+            "nickname": {'n': 'nickName', 't': str, 'v': None},
+            "username": {'n': 'userName', 't': str, 'v': None},
+            "password": {'n': 'passWord', 't': str, 'v': None},
+            "phone": {'n': 'Phone', 't': str, 'v': None},
+            "priv": {'n': 'Priv', 't': str, 'v':None}
         }
 
     def _check_param(self):
-        return True, ''
-
-    def _get_user_info(self):
-        if not self.userName:
-            return MssBuUser.get_user_info(self.get_user_name())
-        bRet, is_admin = MssBuUser.is_admin(self.get_user_name())
+        bRet, sRet = super(ViewApiUserAdd, self)._check_param()
         if not bRet:
-            return False, bRet
-        if is_admin:
-            return MssBuUser.get_user_info(self.userName)
-        return False, "No permission get other info"
+            return bRet, sRet
+        
+        return True, None
 
-    def GET(self):
+    def _deal_user_add(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission do user add'
+        
+        return HjsUser.user_add(self.nickName, self.userName, self.passWord, self.Phone, self.Priv)
+
+    def POST(self):
         if not self.check_login():
             return self.make_error("user not login")
 
-        bRet, sRet = self.process(self._get_user_info)
+        bRet, sRet = self.process(self._deal_user_add)
         if not bRet:
-            Log.err("[GetUserInfo]: %s" % (str(sRet)))
+            Log.err("add user error: %s" % (str(sRet)))
             return self.make_error(sRet)
 
         return self.make_response(sRet)
+
+
+class ViewApiUserUpdate
+    def __init__(self):
+        self._rDict = {
+            "uid": {'n': 'uId', 't': int, 'v': None},
+            "nickname": {'n': 'nickName', 't': str, 'v': None},
+            "username": {'n': 'userName', 't': str, 'v': None},
+            "password": {'n': 'passWord', 't': str, 'v': None},
+            "phone": {'n': 'Phone', 't': str, 'v': None},
+            "priv": {'n': 'Priv', 't': str, 'v':None}
+        }
+
+    def _check_param(self):
+        bRet, sRet = super(ViewApiUserUpdate, self)._check_param()
+        if not bRet:
+            return bRet, sRet
+        
+        return True, None
+
+    def _deal_user_update(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission do user update'
+        
+        return HjsUser.user_update(self.uId, self.nickName, self.userName, self.passWord, self.Phone, self.Priv)
+
+    def POST(self):
+        if not self.check_login():
+            return self.make_error("user not login")
+
+        bRet, sRet = self.process(self._deal_user_update)
+        if not bRet:
+            Log.err("update user error: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
+
+
+class ViewApiUserDel(ViewBase):
+    def __init__(self):
+        self._rDict = {
+            "uid": {'n': 'uId', 't': int, 'v': None}
+        }
+    
+    def _check_param(self):
+        bRet, sRet = super(ViewApiUserDel, self)._check_param()
+        if not bRet:
+            return bRet, sRet
+        
+        return True, None
+
+    def _deal_user_del(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission do user del'
+
+        return HjsUser.user_del(self.get_user_name(), self.uId)
+
+    def POST(self):
+        if not self.check_login():
+            return self.make_error("user not login")
+
+        bRet, sRet = self.process(self._deal_user_del)
+        if not bRet:
+            Log.err("deal_user_del: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,6 +8,7 @@
 from view_base import *
 from hjs_user import *
 from hjs_user_dao import *
+from hjs_order import *
 from hjs_order_dao import *
 
 

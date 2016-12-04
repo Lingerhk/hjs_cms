@@ -31,8 +31,8 @@ if __name__ == "__main__":
     import sys
     sys.path.append("..")
     sys.path.append("../base")
-    from hjs_cfg import *
 
+from hjs_cfg import *
 from bs_util import *
 from bs_database_pid import *
 

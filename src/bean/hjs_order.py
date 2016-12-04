@@ -8,8 +8,8 @@ if __name__ == "__main__":
     import sys
     import os
 
-    sys.path.append("../base")
     sys.path.append("..")
+    sys.path.append("../base")
     sys.path.append("../dao")
 
 from web.utils import *
@@ -22,7 +22,7 @@ from hjs_custom_dao import *
 
 class HjsOrder:
     @staticmethod
-    def test:
+    def test():
         pass
 
 if __name__ == "__main__":

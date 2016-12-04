@@ -5,13 +5,11 @@
 # desc: 完成参数提取与校验
 
 
+import os
+import re
 import web
 from web_util import *
 from bs_log import *
-#from hjs_cfg import *
-import os
-import re
-
 from xml.etree import ElementTree as ET
 
 t_globals = dict(datestr=web.datestr, )
