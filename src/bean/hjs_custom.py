@@ -15,16 +15,26 @@ if __name__ == "__main__":
 from web.utils import *
 from hjs_cfg import *
 from bs_util import *
-from hjs_user_dao import *
-from hjs_order_dao import *
 from hjs_custom_dao import *
 
 
 class HjsCustom:
     
     @staticmethod
-    def test():
-        print 'test'
+    def custom_list(userName):
+        bRet, sRet = HjsCustomDao.query_node_list(userName)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

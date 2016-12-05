@@ -34,6 +34,12 @@ from bs_database_pid import *
 class HjsCustomDao:
 
     @staticmethod
+    def query_node_list(userName):
+        dataBase = DataBase()
+        sql = "select * from tb_custom"
+
+
+    @staticmethod
     def insert_node(user_id, comp_id, task_name, task_type, task_pri_level, task_cycle, task_data, task_start_tm):
 
         dataBase = DataBase()

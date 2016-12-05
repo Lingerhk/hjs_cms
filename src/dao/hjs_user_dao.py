@@ -56,7 +56,7 @@ class HjsUserDao:
         if not bRet:
             return False, sRet
         
-        return True, sRet
+        return True, sRet[0]
 
     
     @staticmethod

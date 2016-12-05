@@ -75,6 +75,16 @@ class HjsUser:
 
 
     @staticmethod
+    def get_user_uid(userName):
+        bRet, sRet = HjsUserDao.query_node_by_username(userName)
+        if not bRet:
+            return False, sRet
+        uid = int(sRet['uid'])
+        
+        return True, uid
+
+
+    @staticmethod
     def is_admin(userName):
         bRet, sRet = HjsUserDao.query_node_by_username(userName)
         if not bRet:
