@@ -150,7 +150,7 @@ class ViewApiCustomUpdate
         if not is_admin:
             return False, 'No permission do user update'
         
-        return HjsCustom.custom_update(self.uId, self.nickName, self.Address, self.Phone, self.Ctype, self.Class, self.Status, self.Remark)        
+        return HjsCustom.custom_update(self.cId, self.nickName, self.Address, self.Phone, self.Ctype, self.Class, self.Status, self.Remark)        
 
     def POST(self):
         if not self.check_login():
