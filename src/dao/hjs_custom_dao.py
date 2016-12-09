@@ -40,7 +40,7 @@ class HjsCustomDao:
 
 
     @staticmethod
-    def insert_node_custom(nickName, Address, Phone, Ctype, Class, Status, Remark):
+    def insert_node(nickName, Address, Phone, Ctype, Class, Status, Remark):
 
         dataBase = DataBase()
         sql = "insert into tb_custom(name, address, phone, ctype, status, class, remark, insert_tm) " \
@@ -62,6 +62,15 @@ class HjsCustomDao:
         return True, sRet
 
     @staticmethod
-    def query_node_add()
+    def update_node(uId, nickName, Address, Phone, Ctype, Class, Status, Remark):
+        dataBase = DataBase()
+        sql = "update tb_custom set name = %s, address = %s, phone = %s, ctype = %s, class = %s, " \
+              "status = %s, remark = %s where cid = %s"
+        param = (nickName, Address, Phone, Ctype, Class, Status, Remark, cId)
+        bRet, sRet = dataBase.update_data(sql, param)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
 
 
