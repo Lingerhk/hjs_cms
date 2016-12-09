@@ -26,7 +26,6 @@ urls = (
     "/logout", ViewLogout,
     "/api/data/count", ViewApiDataCount,
     "/api/custom/list", ViewApiCustomList,
-    "/api/custom/search", ViewApiCustomSearch,
     "/api/custom/add", ViewApiCustomAdd,
     "/api/order/all", ViewApiOrderAll,
     "/api/order/list", ViewApiOrderToday,

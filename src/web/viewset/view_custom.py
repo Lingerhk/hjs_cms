@@ -119,7 +119,7 @@ class ViewApiCustomAdd(ViewBase):
         return self.make_response(sRet)
 
 
-class ViewApiCustomUpdate:
+class ViewApiCustomUpdate(ViewBase):
     def __init__(self):
         self._rDict = {
             "cid": {'n': 'cId', 't': int, 'v': None},
