@@ -21,12 +21,35 @@ from hjs_custom_dao import *
 class HjsCustom:
     
     @staticmethod
-    def custom_list(userName):
-        bRet, sRet = HjsCustomDao.query_node_list(userName)
+    def custom_list(uId, page, length, search):
+        bRet, sRet = HjsCustomDao.query_node_list(uId, page, length, search)
         if not bRet:
             return False, sRet
         
         return True, sRet
+
+    @staticmethod
+    def custom_add(nickName, Address, Phone, Ctype, Class, Status, Remark):
+        bRet, sRet = HjsCustomDao.insert_node(nickName, Address, Phone, Ctype, Class, Status, Remark)
+        if not bRet:
+            return False, sRet
+        return True sRet
+
+    @staticmethod
+    def custom_update(cId, nickName, Address, Phone, Ctype, Class, Status, Remark):
+        bRet, sRet = HjsCustomDao.update_node(uId, nickName, Address, Phone, Ctype, Class, Status, Remark)
+        if not bRet:
+            return False, sRet
+        return True, sRet
+
+    @staticmethod
+    def custom_del(cId):
+        bRet, sRet = HjsCustomDao.del_node_custom(cId)
+        if not bRet:
+            return False, sRet
+        return True, sRet
+
+
 
 
 
