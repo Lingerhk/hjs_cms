@@ -87,7 +87,7 @@ class ViewApiUserAdd(ViewBase):
         return self.make_response(sRet)
 
 
-class ViewApiUserUpdate
+class ViewApiUserUpdate(ViewBase):
     def __init__(self):
         self._rDict = {
             "uid": {'n': 'uId', 't': int, 'v': None},
