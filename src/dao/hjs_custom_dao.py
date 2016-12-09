@@ -12,9 +12,9 @@ CREATE TABLE `tb_custom` (
 `name` varchar(50) NOT NULL,
 `address` varchar(100) NOT NULL,
 `phone` varchar(50) DEFAULT NULL,
-`ctype` varchar(10) DEFAULT NULL,
+`ctype` enum('N', 'O') NOT NULL DEFAULT 'N',
 `class` varchar(10) DEFAULT 'A',
-`status` enum('normal','cancel') NOT NULL DEFAULT 'normal',
+`status` enum('normal','cancel', 'delete') NOT NULL DEFAULT 'normal',
 `remark` text,
 `insert_tm` datetime DEFAULT NULL,
 PRIMARY KEY (`cid`)
@@ -34,9 +34,52 @@ from bs_database_pid import *
 class HjsCustomDao:
 
     @staticmethod
-    def query_node_list(offset, limit, search):
+    def query_node_list(offset, limit, status, search):
         dataBase = DataBase()
-        sql = "select * from (select * from tb_custom"
+        sql = "select * from tb_custom where "
+        param = []
+        if status and status != 'all':
+            sql += "and status = %s "
+            param.append(status)
+        if search:
+            search = "%%%s%%" % (search)
+            sql += "and (name like %s or address like %s or phone like %s)"
+            param.append(search, search, search)
+
+        sql += "order by cid desc limit %s, %s"
+        param.append(offset)
+        param.append(limit)
+
+        param = tuple(param)
+        bRet, sRet = dataBase.query_data(sql, param)
+        if not bRet:
+            return False, sRet
+
+        return True, sRet
+
+
+    @staticmethod
+    def query_node_count(status=None, search=None):
+        dataBase = DataBase()
+        sql = "select count(*) as cnt from tb_custom where"
+        param = []
+
+        if status and status != 'all':
+            sql += "and status = %s"
+            param.append(status)
+        if search:
+            search = "%%%s%%" % (search)
+            sql += "and (name like %s or address like %s or phone like %s)"
+            param.append(search, search, search)
+
+        param = tuple(param)
+        bRet, sRet = dataBase.query_data(sql, param)
+        if not bRet:
+            return False, sRet
+        if len(sRet) !=1:
+            return True, 0
+
+        return True, sRet[0]['cnt']
 
 
     @staticmethod
@@ -50,16 +93,6 @@ class HjsCustomDao:
         bRet, sRet = dataBase.insert_data(sql, param)
         return bRet, sRet
 
-    @staticmethod
-    def query_node_by_id(user_id, task_id):
-        
-        dataBase = DataBase()
-        sql = "select * from tb_task where user_id = %s and task_id = %s"
-        param = (user_id, task_id)
-        
-        bRet, sRet = dataBase.query_data(sql, param)
-        if not bRet: return False, sRet
-        return True, sRet
 
     @staticmethod
     def update_node(cId, nickName, Address, Phone, Ctype, Class, Status, Remark):
@@ -67,6 +100,19 @@ class HjsCustomDao:
         sql = "update tb_custom set name = %s, address = %s, phone = %s, ctype = %s, class = %s, " \
               "status = %s, remark = %s where cid = %s"
         param = (nickName, Address, Phone, Ctype, Class, Status, Remark, cId)
+        bRet, sRet = dataBase.update_data(sql, param)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
+
+
+    # just update the status when delete custom_info.
+    @staticmethod
+    def del_node_by_id(cId):
+        dataBase = DataBase()
+        sql = "update tb_custom set status = %s where cid = %s"
+        param = ('delete', cId)
         bRet, sRet = dataBase.update_data(sql, param)
         if not bRet:
             return False, sRet
