@@ -48,8 +48,8 @@ class HjsUser:
 
 
     @staticmethod
-    def user_add(nickName, userName, passWord, Phone, Priv):
-        bRet, sRet = HjsUserDao.insert_node_user(nickName, userName, passWord, Phone, Priv)
+    def user_add(nickName, userName, passWord, Phone, Email, Priv):
+        bRet, sRet = HjsUserDao.insert_node_user(nickName, userName, passWord, Phone, Email, Priv)
         if not bRet:
             return False, sRet
         
@@ -57,8 +57,8 @@ class HjsUser:
 
 
     @staticmethod
-    def user_update(uId, nickName, userName, passWord, Phone, Priv):
-        bRet, sRet = HjsUserDao.update_node_user(uId, nickName, userName, passWord, Phone, Priv)
+    def user_update(uId, nickName, userName, passWord, Phone, Email, Priv):
+        bRet, sRet = HjsUserDao.update_node_user(uId, nickName, userName, passWord, Phone, Email, Priv)
         if not bRet:
             return False, sRet
         
@@ -66,8 +66,8 @@ class HjsUser:
 
 
     @staticmethod
-    def user_del(userName, uId):
-        bRet, sRet = HjsUserDao.delete_node_user(userName, uId)
+    def user_del(uId):
+        bRet, sRet = HjsUserDao.delete_node_user(uId)
         if not bRet:
             return False, sRet
         

@@ -32,4 +32,6 @@ urls = (
     "/api/order/add", ViewApiOrderCancel,
     "/api/user/list", ViewApiUserList,
     "/api/user/add", ViewApiUserAdd,
+    "/api/user/update", ViewApiUserUpdate,
+    "/api/user/del", ViewApiUserDel,
 )

@@ -56,7 +56,8 @@ class ViewApiUserAdd(ViewBase):
             "username": {'n': 'userName', 't': str, 'v': None},
             "password": {'n': 'passWord', 't': str, 'v': None},
             "phone": {'n': 'Phone', 't': str, 'v': None},
-            "priv": {'n': 'Priv', 't': str, 'v':None}
+            "email": {'n': 'Email', 't': str, 'v': None},
+            "priv": {'n': 'Priv', 't': int, 'v': 1}
         }
 
     def _check_param(self):
@@ -73,7 +74,7 @@ class ViewApiUserAdd(ViewBase):
         if not is_admin:
             return False, 'No permission do user add'
         
-        return HjsUser.user_add(self.nickName, self.userName, self.passWord, self.Phone, self.Priv)
+        return HjsUser.user_add(self.nickName, self.userName, self.passWord, self.Phone, self.Email, self.Priv)
 
     def POST(self):
         if not self.check_login():
@@ -95,6 +96,7 @@ class ViewApiUserUpdate(ViewBase):
             "username": {'n': 'userName', 't': str, 'v': None},
             "password": {'n': 'passWord', 't': str, 'v': None},
             "phone": {'n': 'Phone', 't': str, 'v': None},
+            "email": {'n': 'Email', 't': str, 'v': None},
             "priv": {'n': 'Priv', 't': str, 'v':None}
         }
 
@@ -112,7 +114,7 @@ class ViewApiUserUpdate(ViewBase):
         if not is_admin:
             return False, 'No permission do user update'
         
-        return HjsUser.user_update(self.uId, self.nickName, self.userName, self.passWord, self.Phone, self.Priv)
+        return HjsUser.user_update(self.uId, self.nickName, self.userName, self.passWord, self.Phone, self.Email, self.Priv)
 
     def POST(self):
         if not self.check_login():
@@ -145,8 +147,13 @@ class ViewApiUserDel(ViewBase):
             return False, sRet
         if not is_admin:
             return False, 'No permission do user del'
+        bRet, user_id =  HjsUser.get_user_uid(self.get_user_name())
+        if not bRet:
+            return False, user_id
+        if user_id == self.uId:
+            return False, 'do not allow delete yourself'
 
-        return HjsUser.user_del(self.get_user_name(), self.uId)
+        return HjsUser.user_del(self.uId)
 
     def POST(self):
         if not self.check_login():

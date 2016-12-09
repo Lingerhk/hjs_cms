@@ -72,10 +72,10 @@ class HjsUserDao:
 
 
     @staticmethod
-    def insert_node_user(nickName, userName, passWord, Phone, Priv):
+    def insert_node_user(nickName, userName, passWord, Phone, Email, Priv):
         dataBase = DataBase()
-        sql = "insert into tb_user(nickname, username, password, phone, privilege) values(%s, %s, %s, %s, %s)"
-        param = (nickName, userName, passWord, Phone, Priv)
+        sql = "insert into tb_user(nickname, username, password, phone, email, privilege) values(%s, %s, %s, %s, %s, %s)"
+        param = (nickName, userName, passWord, Phone, Email, Priv)
 
         bRet, sRet = dataBase.insert_data(sql, param)
         if not bRet:
@@ -85,10 +85,10 @@ class HjsUserDao:
 
 
     @staticmethod
-    def update_node_user(uId, nickName, userName, passWord, Phone, Priv):
+    def update_node_user(uId, nickName, userName, passWord, Phone, Email, Priv):
         dataBase = DataBase()
-        sql = "update tb_user set nickname = %s, username = %s, password = %s, phone = %s, privilege= %s where uid = %s"
-        param = (nickName, userName, passWord, Phone, Priv, uId)
+        sql = "update tb_user set nickname = %s, username = %s, password = %s, phone = %s, email = %s, privilege= %s where uid = %s"
+        param = (nickName, userName, passWord, Phone, Email, Priv, uId)
 
         bRet, sRet = dataBase.update_data(sql, param)
         if not bRet:
@@ -98,10 +98,10 @@ class HjsUserDao:
 
 
     @staticmethod
-    def delete_node_user(userName, uId):
+    def delete_node_user(uId):
         dataBase = DataBase()
-        sql = "delete from tb_user where username = %s and uid = %s"
-        param = (userName, uId)
+        sql = "delete from tb_user where uid = %s"
+        param = (uId, )
 
         bRet, sRet = dataBase.delete_data(sql, param)
         if not bRet:
