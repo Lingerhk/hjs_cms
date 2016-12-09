@@ -62,7 +62,7 @@ class HjsCustomDao:
         return True, sRet
 
     @staticmethod
-    def update_node(uId, nickName, Address, Phone, Ctype, Class, Status, Remark):
+    def update_node(cId, nickName, Address, Phone, Ctype, Class, Status, Remark):
         dataBase = DataBase()
         sql = "update tb_custom set name = %s, address = %s, phone = %s, ctype = %s, class = %s, " \
               "status = %s, remark = %s where cid = %s"
