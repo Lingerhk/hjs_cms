@@ -11,9 +11,9 @@ CREATE TABLE `tb_custom` (
   `name` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
   `phone` varchar(50) DEFAULT NULL,
-  `ctype` varchar(10) DEFAULT NULL,
+  `ctype` enum('N','O') NOT NULL DEFAULT 'N',
   `class` varchar(10) DEFAULT 'A',
-  `status` enum('normal','cancel') NOT NULL DEFAULT 'normal',
+  `status` enum('normal','cancel','delete') NOT NULL DEFAULT 'normal',
   `remark` text,
   `insert_tm` datetime DEFAULT NULL,
   PRIMARY KEY (`cid`)
@@ -42,8 +42,8 @@ CREATE TABLE `tb_order` (
 DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
   `uid` int(10) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
   `nickname` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `phone` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
@@ -52,8 +52,5 @@ CREATE TABLE `tb_user` (
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `tb_user` (`uid`, `username`, `nickname`, `password`, `phone`, `email`, `privilege`, `lastlogin`) VALUES
-(100,	'admin',	'管理员',	'admin@123',	'18829272629',	's0nnet@qq.com',	1,	'2016-12-03 11:25:52'),
-(101,	'guo',	'郭遗欢',	'guo@123',	'18829272620',	's0nnet@sina.com',	1,	'2016-12-03 11:26:53');
 
--- 2016-12-03 05:33:06
+-- 2016-12-08 17:27:23
