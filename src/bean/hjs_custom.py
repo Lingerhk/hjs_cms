@@ -61,8 +61,8 @@ class HjsCustom:
         customList = list()
         for item in sRet:
             custom_info = storage()
-            cuctom_info.cid = int(item['cid'])
-            cuctom_info.name = item['name']
+            custom_info.cid = int(item['cid'])
+            custom_info.name = item['name']
             custom_info.address = item['address']
             custom_info.phone = item['ctype']
             custom_info.class_priv = item['class']
@@ -84,7 +84,7 @@ class HjsCustom:
 
     @staticmethod
     def custom_update(cId, nickName, Address, Phone, Ctype, Class, Status, Remark):
-        bRet, sRet = HjsCustomDao.update_node(uId, nickName, Address, Phone, Ctype, Class, Status, Remark)
+        bRet, sRet = HjsCustomDao.update_node(cId, nickName, Address, Phone, Ctype, Class, Status, Remark)
         if not bRet:
             return False, sRet
         return True, sRet
@@ -92,10 +92,19 @@ class HjsCustom:
 
     @staticmethod
     def custom_del(cId):
-        bRet, sRet = HjsCustomDao.del_node_custom(cId)
+        bRet, sRet = HjsCustomDao.delete_node_by_cid(cId)
         if not bRet:
             return False, sRet
         return True, sRet
+
+
+if __name__=="__main__":
+
+    def test_custom_list():
+        print HjsCustom.custom_list(1, 20, 'normal', '')
+
+    def test_custom_add():
+        print HjsCustom.custom_add():
 
 
 

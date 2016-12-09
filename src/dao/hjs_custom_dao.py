@@ -36,7 +36,7 @@ class HjsCustomDao:
     @staticmethod
     def query_node_list(offset, limit, status, search):
         dataBase = DataBase()
-        sql = "select * from tb_custom where "
+        sql = "select * from tb_custom where 1=1 "
         param = []
         if status and status != 'all':
             sql += "and status = %s "
@@ -44,7 +44,9 @@ class HjsCustomDao:
         if search:
             search = "%%%s%%" % (search)
             sql += "and (name like %s or address like %s or phone like %s)"
-            param.append(search, search, search)
+            param.append(search)
+            param.append(search)
+            param.append(search)
 
         sql += "order by cid desc limit %s, %s"
         param.append(offset)
@@ -61,7 +63,7 @@ class HjsCustomDao:
     @staticmethod
     def query_node_count(status=None, search=None):
         dataBase = DataBase()
-        sql = "select count(*) as cnt from tb_custom where"
+        sql = "select count(*) as cnt from tb_custom where 1=1 "
         param = []
 
         if status and status != 'all':
@@ -70,7 +72,9 @@ class HjsCustomDao:
         if search:
             search = "%%%s%%" % (search)
             sql += "and (name like %s or address like %s or phone like %s)"
-            param.append(search, search, search)
+            param.append(search)
+            param.append(search)
+            param.append(search)
 
         param = tuple(param)
         bRet, sRet = dataBase.query_data(sql, param)
@@ -86,7 +90,7 @@ class HjsCustomDao:
     def insert_node(nickName, Address, Phone, Ctype, Class, Status, Remark):
 
         dataBase = DataBase()
-        sql = "insert into tb_custom(name, address, phone, ctype, status, class, remark, insert_tm) " \
+        sql = "insert into tb_custom(name, address, phone, ctype, class, status, remark, insert_tm) " \
               "values(%s, %s, %s, %s, %s, %s, %s, %s)"
         param = (nickName, Address, Phone, Ctype, Class, Status, Remark, get_cur_time())
 
@@ -109,7 +113,7 @@ class HjsCustomDao:
 
     # just update the status when delete custom_info.
     @staticmethod
-    def del_node_by_id(cId):
+    def delete_node_by_cid(cId):
         dataBase = DataBase()
         sql = "update tb_custom set status = %s where cid = %s"
         param = ('delete', cId)

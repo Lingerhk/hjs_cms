@@ -27,6 +27,8 @@ urls = (
     "/api/data/count", ViewApiDataCount,
     "/api/custom/list", ViewApiCustomList,
     "/api/custom/add", ViewApiCustomAdd,
+    "/api/custom/update", ViewApiCustomUpdate,
+    "/api/custom/del", ViewApiCustomDel,
     "/api/order/all", ViewApiOrderAll,
     "/api/order/list", ViewApiOrderToday,
     "/api/order/add", ViewApiOrderCancel,
