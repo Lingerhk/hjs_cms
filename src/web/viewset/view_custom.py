@@ -40,6 +40,7 @@ class ViewApiCustomList(ViewBase):
         self._rDict = {
             "page": {'n': "page", 't': int, 'v': 1},
             "length": {'n': "length", 't': int, 'v': 20},
+            "status": {'n': "status", 't': str, 'v': ''},
             "search": {'n': "search", 't': str, 'v': ''}
         }
         
@@ -50,12 +51,7 @@ class ViewApiCustomList(ViewBase):
         return True, None
 
     def _deal_custom_list(self):
-        bRet, uId = HjsUser.get_user_uid(self.get_user_name())
-        if not bRet:
-            Log.err("get uid by username(%s) error" % (self.get_user_name()))
-            return bRet, uId
-
-        return HjsCustom.custom_list(uId, self.page, self.length, self.search)
+        return HjsCustom.custom_list(self.page, self.length, self.status, self.search)
 
     # get custom list
     def GET(self):
@@ -123,7 +119,7 @@ class ViewApiCustomAdd(ViewBase):
         return self.make_response(sRet)
 
 
-class ViewApiCustomUpdate
+class ViewApiCustomUpdate:
     def __init__(self):
         self._rDict = {
             "cid": {'n': 'cId', 't': int, 'v': None},
