@@ -65,7 +65,7 @@ class HjsCustom:
             cuctom_info.name = item['name']
             custom_info.address = item['address']
             custom_info.phone = item['ctype']
-            custom_info.class = item['class']
+            custom_info.class_priv = item['class']
             custom_info.status = item['status']
             custom_info.remark = item['remark']
             custom_info.insert_tm = str(item['insert_tm'])
@@ -79,7 +79,7 @@ class HjsCustom:
         bRet, sRet = HjsCustomDao.insert_node(nickName, Address, Phone, Ctype, Class, Status, Remark)
         if not bRet:
             return False, sRet
-        return True sRet
+        return True, sRet
 
 
     @staticmethod
