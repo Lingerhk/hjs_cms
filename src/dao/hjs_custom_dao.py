@@ -34,18 +34,18 @@ from bs_database_pid import *
 class HjsCustomDao:
 
     @staticmethod
-    def query_node_list(userName):
+    def query_node_list(offset, limit, search):
         dataBase = DataBase()
-        sql = "select * from tb_custom"
+        sql = "select * from (select * from tb_custom"
 
 
     @staticmethod
-    def insert_node(user_id, comp_id, task_name, task_type, task_pri_level, task_cycle, task_data, task_start_tm):
+    def insert_node_custom(nickName, Address, Phone, Ctype, Class, Status, Remark):
 
         dataBase = DataBase()
-        sql = "insert into tb_task(user_id, comp_id, task_name, task_type, task_pri_level, task_cycle, " \
-              "task_data, task_start_tm, insert_tm) values(%s, %s, %s, %s, %s, %s, %s, %s, %s)" 
-        param = (user_id, comp_id, task_name, task_type, task_pri_level, task_cycle, task_data, task_start_tm, get_cur_time())
+        sql = "insert into tb_custom(name, address, phone, ctype, status, class, remark, insert_tm) " \
+              "values(%s, %s, %s, %s, %s, %s, %s, %s)"
+        param = (nickName, Address, Phone, Ctype, Class, Status, Remark, get_cur_time())
 
         bRet, sRet = dataBase.insert_data(sql, param)
         return bRet, sRet
@@ -60,3 +60,8 @@ class HjsCustomDao:
         bRet, sRet = dataBase.query_data(sql, param)
         if not bRet: return False, sRet
         return True, sRet
+
+    @staticmethod
+    def query_node_add()
+
+
