@@ -40,7 +40,7 @@ class HjsUser:
             user_info.password = item['password']
             user_info.phone = item['phone']
             user_info.email = item['email']
-            user_info.priv = item['privilege']
+            user_info.priv = int(item['privilege'])
             user_info.lastlogin = str(item['lastlogin'])
             userList.append(user_info)
 

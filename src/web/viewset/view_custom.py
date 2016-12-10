@@ -116,7 +116,7 @@ class ViewApiCustomAdd(ViewBase):
             Log.err("add custom error: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 class ViewApiCustomUpdate(ViewBase):
@@ -157,7 +157,7 @@ class ViewApiCustomUpdate(ViewBase):
             Log.err("update custom error: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 class ViewApiCustomDel(ViewBase):
@@ -190,30 +190,7 @@ class ViewApiCustomDel(ViewBase):
             Log.err("deal_custom_del: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 

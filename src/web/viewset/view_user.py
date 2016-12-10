@@ -85,7 +85,7 @@ class ViewApiUserAdd(ViewBase):
             Log.err("add user error: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 class ViewApiUserUpdate(ViewBase):
@@ -125,7 +125,7 @@ class ViewApiUserUpdate(ViewBase):
             Log.err("update user error: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 class ViewApiUserDel(ViewBase):
@@ -164,19 +164,7 @@ class ViewApiUserDel(ViewBase):
             Log.err("deal_user_del: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
-
-
-
-
-
-
-
-
-
-
-
-
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 
