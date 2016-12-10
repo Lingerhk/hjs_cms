@@ -114,8 +114,47 @@ class HjsOrderDao:
         return True, sRet[0]['cnt']
 
 
+    @staticmethod
+    def query_node_by_status(status):
+        dataBase = DataBase()
+        sql = "select count(*) as cnt from tb_order where 1=1 "
+        param = []
+
+        if status == 'all':
+            pass
+        else:
+            sql += 'and status = %s'
+            param.append(status)
+        
+        param = tuple(param)
+        bRet, sRet = dataBase.query_data(sql, param)
+        if not bRet:
+            return False, sRet
+        if len(sRet) != 1:
+            return True, 0
+        
+        return True, sRet[0]['cnt']
+
+        
+    @staticmethod
+    def query_node_by_days(days):
+        dataBase = DataBase()
+        sql = "select oid, cid, name, date_format(end_tm, '%%Y-%%m-%%d') as end_time from tb_order " \
+              "where end_tm >= curdate() and end_tm < curdate() + %s"
+        param = (days, )
+
+        bRet, sRet = dataBase.query_data(sql, param)
+        if not bRet:
+            return False, sRet
+        
+        return True, sRet
 
 
+
+if __name__ == "__main__":
+    #print HjsOrderDao.query_node_by_status('stop')
+
+    print HjsOrderDao.query_node_by_date(3)
 
 
 
