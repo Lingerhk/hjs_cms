@@ -31,6 +31,7 @@ CREATE TABLE `tb_order` (
   `end_tm` date NOT NULL,
   `amount` float NOT NULL,
   `cash` float NOT NULL,
+  `status` enum('normal','stop') NOT NULL DEFAULT 'normal',
   `remark` text NOT NULL,
   `insert_tm` datetime NOT NULL,
   PRIMARY KEY (`oid`),
@@ -53,4 +54,4 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2016-12-08 17:27:23
+-- 2016-12-09 20:07:47
