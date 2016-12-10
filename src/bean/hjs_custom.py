@@ -104,20 +104,30 @@ if __name__=="__main__":
         print HjsCustom.custom_list(1, 20, 'normal', '')
 
     def test_custom_add():
-        print HjsCustom.custom_add():
+        nickName = "zhangxicheng"
+        Address = "city_12_a"
+        Phone = "18829252920"
+        Ctype = "N"
+        Class = "A"
+        Status = "normal"
+        Remark = "xxxx"
+        print HjsCustom.custom_add(nickName, Address, Phone, Ctype, Class, Status, Remark)
 
+    def test_custom_update():
+        cId = 1002
+        nickName = "zhangxicheng"
+        Address = "city_12_a"
+        Phone = "18829252920"
+        Ctype = "N"
+        Class = "A"
+        Status = "normal"
+        Remark = "xxxx"
+        print HjsCustom.custom_add(nickName, Address, Phone, Ctype, Class, Status, Remark)
 
+    def test_custom_del():
+        print HjsCustom.custom_del(1003)
 
+    # test ing ...
 
-
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    pass
-
+    test_custom_list()
 
