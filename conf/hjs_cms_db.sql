@@ -40,6 +40,23 @@ CREATE TABLE `tb_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `tb_ps_order`;
+CREATE TABLE `tb_ps_order` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `oid` int(10) NOT NULL,
+  `cid` int(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `pause_tm` date NOT NULL,
+  `remark` text NOT NULL,
+  `insert_tm` datetime NOT NULL,
+  PRIMARY KEY (`pid`),
+  KEY `oid` (`oid`),
+  KEY `cid` (`cid`),
+  CONSTRAINT `tb_ps_order_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `tb_order` (`oid`),
+  CONSTRAINT `tb_ps_order_ibfk_2` FOREIGN KEY (`cid`) REFERENCES `tb_custom` (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
   `uid` int(10) NOT NULL AUTO_INCREMENT,
@@ -54,4 +71,4 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2016-12-09 20:07:47
+-- 2016-12-10 06:13:36
