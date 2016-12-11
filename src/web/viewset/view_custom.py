@@ -87,7 +87,6 @@ class ViewApiCustomAdd(ViewBase):
             "phone": {'n': 'Phone', 't': str, 'v': None},
             "ctype": {'n': 'Ctype', 't': str, 'v': None},
             "class": {'n': 'Class', 't': str, 'v': None},
-            "status": {'n': 'Status', 't': str, 'v': None},
             "remark": {'n': 'Remark', 't': str, 'v': None}
         }
 
@@ -105,7 +104,7 @@ class ViewApiCustomAdd(ViewBase):
         if not is_admin:
             return False, 'No permission do custom add'
         
-        return HjsCustom.custom_add(self.nickName, self.Address, self.Phone, self.Ctype, self.Class, self.Status, self.Remark)
+        return HjsCustom.custom_add(self.nickName, self.Address, self.Phone, self.Ctype, self.Class, self.Remark)
 
     def POST(self):
         if not self.check_login():

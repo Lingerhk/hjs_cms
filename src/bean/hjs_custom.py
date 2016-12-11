@@ -76,8 +76,8 @@ class HjsCustom:
 
 
     @staticmethod
-    def custom_add(nickName, Address, Phone, Ctype, Class, Status, Remark):
-        bRet, sRet = HjsCustomDao.insert_node(nickName, Address, Phone, Ctype, Class, Status, Remark)
+    def custom_add(nickName, Address, Phone, Ctype, Class, Remark):
+        bRet, sRet = HjsCustomDao.insert_node(nickName, Address, Phone, Ctype, Class, Remark)
         if not bRet:
             return False, sRet
         return True, sRet

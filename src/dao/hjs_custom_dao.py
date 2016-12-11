@@ -87,12 +87,12 @@ class HjsCustomDao:
 
 
     @staticmethod
-    def insert_node(nickName, Address, Phone, Ctype, Class, Status, Remark):
+    def insert_node(nickName, Address, Phone, Ctype, Class, Remark):
 
         dataBase = DataBase()
-        sql = "insert into tb_custom(name, address, phone, ctype, class, status, remark, insert_tm) " \
+        sql = "insert into tb_custom(name, address, phone, ctype, class, remark, insert_tm) " \
               "values(%s, %s, %s, %s, %s, %s, %s, %s)"
-        param = (nickName, Address, Phone, Ctype, Class, Status, Remark, get_cur_time())
+        param = (nickName, Address, Phone, Ctype, Class, Remark, get_cur_time())
 
         bRet, sRet = dataBase.insert_data(sql, param)
         return bRet, sRet
@@ -122,5 +122,51 @@ class HjsCustomDao:
             return False, sRet
         
         return True, sRet
+
+
+    @staticmethod
+    def query_node_by_status(status):
+        dataBase = DataBase()
+        sql = "select count(*) as cnt from tb_custom where 1=1 "
+        param = []
+
+        if status == 'all':
+            pass
+        else:
+            sql += 'and status = %s'
+            param.append(status)
+        
+        param = tuple(param)
+        bRet, sRet = dataBase.query_data(sql, param)
+        if not bRet:
+            return False, sRet
+        if len(sRet) != 1:
+            return True, 0
+        return True, sRet[0]['cnt']
+
+
+    @staticmethod
+    def query_node_by_cid(cId):
+        dataBase = DataBase()
+        sql = "select * from tb_custom where cid = %s"
+        param = (cId, )
+        bRet, sRet = dataBase.query_data(sql, param)
+        if (not bRet) or (len(sRet) != 1):
+            return False, sRet
+        
+        return True, sRet[0]
+
+
+
+
+if __name__ == "__main__":
+
+    print HjsCustomDao.query_node_by_status('delete')
+
+
+
+
+
+
 
 
