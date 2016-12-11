@@ -33,7 +33,7 @@ class HjsOrderPause:
         orderPsList = list()
         for item in sRet:
             pause_info = storage()
-            pause_info.pid = int(item['pid']
+            pause_info.pid = int(item['pid'])
             pause_info.oid = int(item['oid'])
             pause_info.cid = int(item['cid'])
             pause_info.name = item['name']
