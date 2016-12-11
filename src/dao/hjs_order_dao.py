@@ -149,12 +149,24 @@ class HjsOrderDao:
         
         return True, sRet
 
+    
+    @staticmethod
+    def query_node_by_date(status, tg_date):
+        dataBase = DataBase()
+        sql = "select * from tb_order where status = %s and start_tm <= %s and %s <= end_tm"
+        param = (status, tg_date, tg_date)
+
+        bRet, sRet = dataBase.query_data(sql, param)
+        if not bRet:
+            return False, sRet
+
+        return True, sRet
 
 
 if __name__ == "__main__":
     #print HjsOrderDao.query_node_by_status('stop')
 
-    print HjsOrderDao.query_node_by_date(3)
+    print HjsOrderDao.query_node_by_date('normal', '2016-12-11')
 
 
 

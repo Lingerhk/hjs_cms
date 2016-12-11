@@ -16,8 +16,10 @@ if __name__ == "__main__":
 from web.utils import *
 from hjs_cfg import *
 from bs_util import *
+from bs_time import *
 from hjs_user_dao import *
 from hjs_order_dao import *
+from hjs_custom_dao import *
 
 
 class OrderStatus:
@@ -65,7 +67,7 @@ class HjsOrder:
             order_info.oid = int(item['oid'])
             order_info.cid = int(item['cid'])
             order_info.name = item['name']
-            order_info.order_tm = str(item['insert_tm'])
+            order_info.order_tm = str(item['order_tm'])
             order_info.start_tm = str(item['start_tm'])
             order_info.end_tm = str(item['end_tm'])
             order_info.amount = item['amount']
@@ -78,23 +80,54 @@ class HjsOrder:
 
 
     @staticmethod
-    def order_today():
-        pass
+    def order_today(status='normal', days=0):
+        tg_date = get_cur_day(days, format="%Y-%m-%d")
+        bRet, orderList_tmp = HjsOrderDao.query_node_by_date(status, tg_date)
+        if not bRet:
+            return False, orderList
+        
+        bRet, sRet = HjsOrderPauseDao.query_node_by_date(tg_date)
+        if not bRet:
+            return False, sRet
+        
+        pauseList = list()
+        for item in sRet:
+            if item.has_key('oid'):
+                pauseList.append(item['oid'])
+
+        orderList = list()
+        for item in orderList_tmp:
+            if item['oid'] in pauseList: continue
+            
+            order_info = storage()
+            order_info.oid = int(item['oid'])
+            order_info.cid = int(item['cid'])
+            order_info.name = item['name']
+            order_info.remark = item['remark']
+            
+            bRet, custom_info = HjsCustomDao.query_node_by_cid(order_info.cid)
+            order_info.address = custom_info['address'] if bRet else ''
+            order_info.phone = custom_info['phone'] if bRet else ''
+
+            orderList.append(order_info)
+
+        return True, orderList
 
 
     @staticmethod
     def order_add(oId, order_tm, start_tm, end_tm, amount, cash, remark):
-        pass
+        return HjsOrderDao.insert_node(oId, order_tm, start_tm, end_tm, amount, cash, remark)
 
 
     @staticmethod
     def order_del(oId):
-        pass
+        return HjsOrderDao.update_node(oId, 'stop')
 
 
 
 
 if __name__ == "__main__":
-    pass
+    
+    print HjsOrder.order_today() 
 
 
