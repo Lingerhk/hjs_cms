@@ -4,6 +4,7 @@
 # time: 2016-11-08
 # desc: order处理逻辑 
 
+
 if __name__ == "__main__":
     import sys
     import os
@@ -76,13 +77,19 @@ class HjsOrder:
         return True, HjsOrder._page_data(orderList, status, search, pg)
 
 
+    @staticmethod
+    def order_today():
+        pass
 
 
+    @staticmethod
+    def order_add(oId, order_tm, start_tm, end_tm, amount, cash, remark):
+        pass
 
 
-
-
-
+    @staticmethod
+    def order_del(oId):
+        pass
 
 
 

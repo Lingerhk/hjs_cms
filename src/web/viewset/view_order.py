@@ -7,10 +7,8 @@
 
 from view_base import *
 from hjs_user import *
-from hjs_user_dao import *
 from hjs_order import *
-from hjs_order_dao import *
-
+from hjs_ps_order import *
 
 class ViewOrderAll(ViewBase):
     def GET(self):
@@ -19,6 +17,7 @@ class ViewOrderAll(ViewBase):
             return web.seeother("/login")
         return render.order_all()
 
+
 class ViewOrderToday(ViewBase):
     def GET(self):
         if not self.check_login():
@@ -26,12 +25,14 @@ class ViewOrderToday(ViewBase):
             return web.seeother("/login")
         return render.order_today()
 
+
 class ViewOrderCancel(ViewBase):
     def GET(self):
         if not self.check_login():
             Log.err("user not login")
             return web.seeother("/login")
         return render.order_cancel()
+
 
 class ViewApiOrderList(ViewBase):
     def __init__(self):
@@ -45,7 +46,7 @@ class ViewApiOrderList(ViewBase):
     def _check_param(self):
         bRet, sRet = super(ViewApiOrderList, self)._check_param()
         if not bRet:
-            return bRet, sRet
+            return False, sRet
         return True, None
 
     def _deal_order_list(self):
@@ -77,29 +78,180 @@ class ViewApiOrderList(ViewBase):
 
 
 class ViewApiOrderToday(ViewBase):
+    def _deal_order_today(self):
+        return HjsOrder.order_today()
+
+    # order list today
     def GET(self):
-        pass
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_today)
+        if not bRet:
+            Log.err("deal_order_today: %s" % (str(sRet)))
+            return self.make_error(sRet)
 
-
-class ViewApiOrderCancel(ViewBase):
-    def GET(self):
-        pass
-
+        return self.make_response(sRet)
 
 
 class ViewApiOrderAdd(ViewBase):
-    def GET(self):
-        pass
+    def __init__(self):
+        self._rDict = {
+            "oid": {'n': "oId", 't': int, 'v': None},
+            "order_tm": {'n': "order_tm", 't': str, 'v': None},
+            "start_tm": {'n': "start_tm", 't': str, 'v': None},
+            "end_tm": {'n': "end_tm", 't': str, 'v': None},
+            "amount": {'n': "amount", 't': str, 'v': None},
+            "cash": {'n': "cash", 't': str, 'v': None},
+            "remark": {'n': "remark", 't': str, 'v': None}
+        }
+
+    def _check_param(self):
+        bRet, sRet = super(ViewApiOrderAdd, self)._check_param()
+        if not bRet:
+            return False, sRet
+        return True, None
+
+    def _deal_order_add(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission to do this'
+
+        return HjsOrder.order_add(self.oId, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash, self.remark)
+
+    def POST(self):
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_add)
+        if not bRet:
+            Log.err("deal_order_add: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
 
 
 class ViewApiOrderDel(ViewBase):
+    def __init__(self):
+        self._rDict = {
+            "oid": {'n': "oId", 't': int, 'v': None},
+        }
+
+    def _check_param(self):
+        bRet, sRet = super(ViewApiOrderDel, self)._check_param()
+        if not bRet:
+            return False, sRet
+        return True, None
+
+    def _deal_order_del(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission to do this'
+
+        return HjsOrder.order_del(self.oId)
+
+    def POST(self):
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_del)
+        if not bRet:
+            Log.err("deal_order_del: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
+
+
+class ViewApiOrderPauseList(ViewBase):
+    def _deal_order_pause_list(self):
+        return HjsOrderPause.order_list()
+
+    # pause order list
     def GET(self):
-        pass
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_pause_list)
+        if not bRet:
+            Log.err("deal_pause_order_list: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
 
 
+class ViewApiOrderPauseAdd(ViewBase):
+    def __init__(self):
+        self._rDict = { 
+            "oid": {'n': "oId", 't': int, 'v': None},
+            "pause_tm": {'n': "pause_tm", 't': str, 'v': None},
+            "remark": {'n': "remark", 't': str, 'v': None}
+        }
+    
+    def _check_param(self):
+        bRet, sRet = super(ViewApiOrderPauseAdd, self)._check_param()
+        if not bRet:
+            return False, sRet
+        return True, None
+
+    def _deal_order_pause_add(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission to do this'
+
+        return HjsOrderPause.order_add(self.oId, self.pause_tm, self.remark)
+
+    # pause order add
+    def POST(self):
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_pause_add)
+        if not bRet:
+            Log.err("deal_pause_order_add: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
 
 
+class ViewApiOrderPauseDel(ViewBase):
+    def __init__(self):
+        self._rDict = { 
+            "pid": {'n': "pId", 't': int, 'v': None}
+        }
+    
+    def _check_param(self):
+        bRet, sRet = super(ViewApiOrderPauseDel, self)._check_param()
+        if not bRet:
+            return False, sRet
+        
+        return True, None
 
+    def _deal_order_pause_del(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission to do this'
+
+        return HjsOrderPause.order_del(self.pId)
+
+    # pause order del
+    def POST(self):
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_pause_del)
+        if not bRet:
+            Log.err("deal_pause_order_del: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
 
 
 
