@@ -64,7 +64,8 @@ class HjsCustom:
             custom_info.cid = int(item['cid'])
             custom_info.name = item['name']
             custom_info.address = item['address']
-            custom_info.phone = item['ctype']
+            custom_info.phone = item['phone']
+            custom_info.ctype = item['ctype']
             custom_info.class_priv = item['class']
             custom_info.status = item['status']
             custom_info.remark = item['remark']
