@@ -97,7 +97,7 @@ class ViewApiOrderToday(ViewBase):
 class ViewApiOrderAdd(ViewBase):
     def __init__(self):
         self._rDict = {
-            "oid": {'n': "oId", 't': int, 'v': None},
+            "cid": {'n': "cId", 't': int, 'v': None},
             "order_tm": {'n': "order_tm", 't': str, 'v': None},
             "start_tm": {'n': "start_tm", 't': str, 'v': None},
             "end_tm": {'n': "end_tm", 't': str, 'v': None},
@@ -119,7 +119,7 @@ class ViewApiOrderAdd(ViewBase):
         if not is_admin:
             return False, 'No permission to do this'
 
-        return HjsOrder.order_add(self.oId, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash, self.remark)
+        return HjsOrder.order_add(self.cId, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash, self.remark)
 
     def POST(self):
         bRet, sRet = self.check_login()

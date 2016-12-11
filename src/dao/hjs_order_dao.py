@@ -41,22 +41,24 @@ from bs_database_pid import *
 class HjsOrderDao:
 
     @staticmethod
-    def insert_node():
+    def insert_node(cId, name, otype, order_tm, start_tm, end_tm, amount, cash, remark):
 
         dataBase = DataBase()
-        sql = ""
-        param = ()
+        sql = "insert into tb_order(cid, name, otype, order_tm, start_tm, end_tm, amount. cash, remark) " \
+              "values(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        param = (cId, name, otype, order_tm, start_tm, end_tm, amount, cash, remark)
 
         bRet, sRet = dataBase.insert_data(sql, param)
         return bRet, sRet
 
-    @staticmethod
-    def query_node():
-        dataBase = DataBase()
-        sql = ""
-        param = ()
 
-        bRet, sRet = dataBase.query_data(sql, param)
+    @staticmethod
+    def update_node_status(oId, status):
+        dataBase = DataBase()
+        sql = "update tb_order set status = %s where oid = %s"
+        param = (status, oId)
+
+        bRet, sRet = dataBase.update_data(sql, param)
         if not bRet:
             return False, sRet
 
