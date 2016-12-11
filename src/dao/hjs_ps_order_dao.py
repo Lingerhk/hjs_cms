@@ -145,6 +145,19 @@ class HjsOrderPauseDao:
         return True, sRet
 
 
+    @staticmethod
+    def query_node_by_date(tg_date):
+        dataBase = DataBase()
+        sql = "select * from tb_ps_order where pause_tm = %s"
+        param = (tg_date, )
+
+        bRet, sRet = dataBase.query_data(sql, param)
+        if not bRet:
+            return False, sRet
+    
+        return True, sRet
+
+
 
 if __name__ == "__main__":
     #print HjsOrderDao.query_node_by_status('stop')
