@@ -46,19 +46,6 @@ class HjsOrderPauseDao:
         return bRet, sRet
 
     @staticmethod
-    def query_node():
-        dataBase = DataBase()
-        sql = ""
-        param = ()
-
-        bRet, sRet = dataBase.query_data(sql, param)
-        if not bRet:
-            return False, sRet
-
-        return True, sRet
-
-
-    @staticmethod
     def query_node_list(offset, limit, status, search):
         dataBase = DataBase()
         sql = "select * from tb_order where 1=1 "
@@ -132,11 +119,10 @@ class HjsOrderPauseDao:
 
         
     @staticmethod
-    def query_node_by_days(days):
+    def delete_node_by_pId(pId):
         dataBase = DataBase()
-        sql = "select oid, cid, name, date_format(end_tm, '%%Y-%%m-%%d') as end_time from tb_order " \
-              "where end_tm >= curdate() and end_tm < curdate() + %s"
-        param = (days, )
+        sql = "delete from tb_ps_order where pid = %s"
+        param = (pId, )
 
         bRet, sRet = dataBase.query_data(sql, param)
         if not bRet:

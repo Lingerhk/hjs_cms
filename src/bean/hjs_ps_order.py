@@ -58,8 +58,8 @@ class HjsOrderPause:
 
 
     @staticmethod
-    def order_del(oId):
-        bRet, sRet = HjsOrderPauseDao.update_node_by_oid(oId)
+    def order_del(pId):
+        bRet, sRet = HjsOrderPauseDao.delete_node_by_pid(pId)
         if not bRet:
             return False, sRet
         
