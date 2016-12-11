@@ -45,8 +45,8 @@ class HjsOrderDao:
 
         dataBase = DataBase()
         sql = "insert into tb_order(cid, name, otype, order_tm, start_tm, end_tm, amount. cash, remark) " \
-              "values(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        param = (cId, name, otype, order_tm, start_tm, end_tm, amount, cash, remark)
+              "values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        param = (cId, name, otype, order_tm, start_tm, end_tm, amount, cash, remark, get_cur_time())
 
         bRet, sRet = dataBase.insert_data(sql, param)
         return bRet, sRet

@@ -36,11 +36,12 @@ from bs_database_pid import *
 class HjsOrderPauseDao:
 
     @staticmethod
-    def insert_node(oid, cid, name, ):
+    def insert_node(oid, cid, name, pause_tm, remark):
 
         dataBase = DataBase()
-        sql = ""
-        param = ()
+        sql = "insert into tb_ps_order(oid, cid, name, pause_tm, remark, insert_tm) " \
+              "values(%s, %s, %s, %s, %s, %s)"
+        param = (oid, cid, pause_tm, remark, get_cur_time())
 
         bRet, sRet = dataBase.insert_data(sql, param)
         return bRet, sRet
@@ -96,28 +97,6 @@ class HjsOrderPauseDao:
         return True, sRet[0]['cnt']
 
 
-    @staticmethod
-    def query_node_by_status(status):
-        dataBase = DataBase()
-        sql = "select count(*) as cnt from tb_order where 1=1 "
-        param = []
-
-        if status == 'all':
-            pass
-        else:
-            sql += 'and status = %s'
-            param.append(status)
-        
-        param = tuple(param)
-        bRet, sRet = dataBase.query_data(sql, param)
-        if not bRet:
-            return False, sRet
-        if len(sRet) != 1:
-            return True, 0
-        
-        return True, sRet[0]['cnt']
-
-        
     @staticmethod
     def delete_node_by_pId(pId):
         dataBase = DataBase()
