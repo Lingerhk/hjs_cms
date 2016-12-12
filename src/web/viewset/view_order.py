@@ -99,7 +99,7 @@ class ViewApiOrderAdd(ViewBase):
         self._rDict = {
             "cid": {'n': "cId", 't': int, 'v': None},
             "otype": {'n': "otype", 't': str, 'v': None},
-            "order_tm": {'n': "order_tm", 't': str, 'v': None},
+            "order_tm": {'n': "order_tm", 't': str, 'v': ''},
             "start_tm": {'n': "start_tm", 't': str, 'v': None},
             "end_tm": {'n': "end_tm", 't': str, 'v': None},
             "amount": {'n': "amount", 't': str, 'v': None},
@@ -120,7 +120,7 @@ class ViewApiOrderAdd(ViewBase):
         if not is_admin:
             return False, 'No permission to do this'
 
-        return HjsOrder.order_add(self.cId, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash, self.remark)
+        return HjsOrder.order_add(self.cId, self.otype, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash, self.remark)
 
     def POST(self):
         bRet, sRet = self.check_login()
