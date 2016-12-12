@@ -131,7 +131,7 @@ class ViewApiOrderAdd(ViewBase):
             Log.err("deal_order_add: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 class ViewApiOrderDel(ViewBase):
@@ -164,7 +164,7 @@ class ViewApiOrderDel(ViewBase):
             Log.err("deal_order_del: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 class ViewApiOrderPauseList(ViewBase):
@@ -217,7 +217,7 @@ class ViewApiOrderPauseAdd(ViewBase):
             Log.err("deal_pause_order_add: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 class ViewApiOrderPauseDel(ViewBase):
@@ -252,7 +252,7 @@ class ViewApiOrderPauseDel(ViewBase):
             Log.err("deal_pause_order_del: %s" % (str(sRet)))
             return self.make_error(sRet)
 
-        return self.make_response(sRet)
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
 
