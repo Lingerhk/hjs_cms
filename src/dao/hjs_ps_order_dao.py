@@ -98,12 +98,12 @@ class HjsOrderPauseDao:
 
 
     @staticmethod
-    def delete_node_by_pId(pId):
+    def delete_node_by_pid(pId):
         dataBase = DataBase()
         sql = "delete from tb_ps_order where pid = %s"
         param = (pId, )
 
-        bRet, sRet = dataBase.query_data(sql, param)
+        bRet, sRet = dataBase.delete_data(sql, param)
         if not bRet:
             return False, sRet
         
@@ -127,7 +127,8 @@ class HjsOrderPauseDao:
 if __name__ == "__main__":
     #print HjsOrderDao.query_node_by_status('stop')
 
-    print HjsOrderDao.query_node_by_date(3)
+    #print HjsOrderDao.query_node_by_date(3)
+    print HjsOrderPauseDao.delete_node_by_pid(3)
 
 
 

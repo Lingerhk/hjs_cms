@@ -115,6 +115,18 @@ class HjsOrderDao:
 
         return True, sRet[0]['cnt']
 
+    @staticmethod
+    def query_node_by_oid(oId):
+        dataBase = DataBase()
+        sql = "select * from tb_order where oid = %s"
+        param = (oId, )
+
+        bRet, sRet = dataBase.query_data(sql, param)
+        if (not bRet) or (len(sRet) != 1):
+            return False, sRet
+        
+        return True, sRet[0]
+
 
     @staticmethod
     def query_node_by_status(status):
