@@ -98,7 +98,7 @@ class ViewApiOrderAdd(ViewBase):
     def __init__(self):
         self._rDict = {
             "cid": {'n': "cId", 't': int, 'v': None},
-            "otype": {'n': "otype", 't': str. 'v': None},
+            "otype": {'n': "otype", 't': str, 'v': None},
             "order_tm": {'n': "order_tm", 't': str, 'v': None},
             "start_tm": {'n': "start_tm", 't': str, 'v': None},
             "end_tm": {'n': "end_tm", 't': str, 'v': None},
