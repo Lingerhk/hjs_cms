@@ -123,4 +123,6 @@ if __name__ == "__main__":
     def test8():
         print get_cur_day(7, "%Y-%m-%d %H:%M:%S")
     # test7()
-    test8()
+    #test8()
+
+    print get_cur_day(-2,format="%Y-%m-%d")

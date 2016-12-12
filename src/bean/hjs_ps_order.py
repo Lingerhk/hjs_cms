@@ -52,7 +52,7 @@ class HjsOrderPause:
             return False, order
         
         cid = order['cid'] if order.has_key('cid') else ''
-        name = order_info['name'] if order.has_key('name') else ''
+        name = order['name'] if order.has_key('name') else ''
         
         return HjsOrderPauseDao.insert_node(oId, cid, name, pause_tm, remark)
 

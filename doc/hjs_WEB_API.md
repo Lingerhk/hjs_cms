@@ -434,8 +434,9 @@
     # 类型  |  默认值  |  是否必填
     # str  | None(没有默认值填None)  | yes
     {
-      "cid": 1002, 
-      "order_tm": "2016-03-12 12:23:11",
+      "cid": 1002,
+      "otype": "A", 
+      "order_tm": "2016-03-12 12:23:11", # 非必须
       "start_tm": "2016-04-23",
       "end_tm": "2016-05-23",
       "amount": 300,
@@ -458,11 +459,81 @@
   - `POST /api/order/del`
 
   * 请求参数：
-    ```json
+    ```json	
     # 类型  |  默认值  |  是否必填
     # str  | None(没有默认值填None)  | yes
     {
       "oid": 2001
+    }
+    ```
+    
+  * 响应结果：
+
+    ```json
+    {
+      "result": "Success"
+    }
+    ```
+
+
+* 获取暂取消订单列表
+
+  - `GET /api/order/pause_list`
+
+  * 请求参数： 无
+    
+  * 响应结果：
+    ```json
+    {
+        "result": [{
+            "pid": 2001,
+            "oid": 1003,
+            "cid": 1004,
+            "name": "zhang123",
+            "pause_tm": "zzzzzxxxx",
+            "remark": "13255559999"
+            },
+            ....
+        ]
+    }
+    ```
+
+
+
+* 添加暂取消订单
+
+  - `GET /api/order/pause_add`
+
+  * 请求参数：
+    ```json	
+    # 类型  |  默认值  |  是否必填
+    # str  | None(没有默认值填None)  | yes
+    {
+      "oid": 2001,
+      "pause_tm": "2016-03-23",
+      "remark": "cxxxsssssss"
+    }
+    ```
+    
+  * 响应结果：
+
+    ```json
+    {
+      "result": "Success"
+    }
+    ```
+
+
+* 删除暂取消订单
+
+  - `GET /api/order/pause_del`
+
+  * 请求参数：
+    ```json	
+    # 类型  |  默认值  |  是否必填
+    # str  | None(没有默认值填None)  | yes
+    {
+      "pid": 2001
     }
     ```
     

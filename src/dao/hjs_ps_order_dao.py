@@ -41,7 +41,7 @@ class HjsOrderPauseDao:
         dataBase = DataBase()
         sql = "insert into tb_ps_order(oid, cid, name, pause_tm, remark, insert_tm) " \
               "values(%s, %s, %s, %s, %s, %s)"
-        param = (oid, cid, pause_tm, remark, get_cur_time())
+        param = (oid, cid, name, pause_tm, remark, get_cur_time())
 
         bRet, sRet = dataBase.insert_data(sql, param)
         return bRet, sRet
