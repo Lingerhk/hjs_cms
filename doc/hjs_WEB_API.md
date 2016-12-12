@@ -365,6 +365,116 @@
   * 响应结果(html)： order_pause_add.html
 
 
+* 获取订单列表
+
+  - `GET /api/order/list`
+
+  * 请求参数：
+    ```json
+    # 类型  |  默认值  |  是否必填
+    # str  | None(没有默认值填None)  | yes
+    {
+      "page": 1, # int | 1  | no
+      "length": 20, # int | 20 | no
+      "status": "normal", # str | None | no 
+      "search": "123" # str | None | no
+    }
+    ```
+    
+  * 响应结果：
+    ```json
+    {
+        "result": [{
+            "oid": 2001,
+            "cid": 1004,
+            "name": "zhang123",
+            "order_tm": "2015-12-21 23:12:11",
+            "start_tm": "2016-02-12",
+            "end_tm": "2016-04-12", 
+            "amount": 600,
+            "cash": 550,
+            "remark": "xxxxxxx",
+            "insert_tm": "2015-21-23 12:23:21"
+            },
+            ....
+        ]
+    }
+    ```
+
+
+* 获取当日订单列表
+
+  - `GET /api/order/today`
+
+  * 请求参数： 无
+    
+  * 响应结果：
+    ```json
+    {
+        "result": [{
+            "oid": 2001,
+            "cid": 1004,
+            "name": "zhang123",
+            "address": "zzzzzxxxx",
+            "phone": "13255559999",
+            "remark": "xxxxxxx"
+            },
+            ....
+        ]
+    }
+    ```
+
+
+* 添加订单
+
+  - `POST /api/order/add`
+
+  * 请求参数：
+    ```json
+    # 类型  |  默认值  |  是否必填
+    # str  | None(没有默认值填None)  | yes
+    {
+      "cid": 1002, 
+      "order_tm": "2016-03-12 12:23:11",
+      "start_tm": "2016-04-23",
+      "end_tm": "2016-05-23",
+      "amount": 300,
+      "cash": 280,
+      "remark":"need 20"
+    }
+    ```
+    
+  * 响应结果：
+
+    ```json
+    {
+      "result": "Success"
+    }
+    ```
+
+
+* 删除订单
+
+  - `POST /api/order/del`
+
+  * 请求参数：
+    ```json
+    # 类型  |  默认值  |  是否必填
+    # str  | None(没有默认值填None)  | yes
+    {
+      "oid": 2001
+    }
+    ```
+    
+  * 响应结果：
+
+    ```json
+    {
+      "result": "Success"
+    }
+    ```
+
+
 
 
 
