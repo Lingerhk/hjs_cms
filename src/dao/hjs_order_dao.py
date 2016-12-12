@@ -44,7 +44,7 @@ class HjsOrderDao:
     def insert_node(cId, name, otype, order_tm, start_tm, end_tm, amount, cash, remark):
 
         dataBase = DataBase()
-        sql = "insert into tb_order(cid, name, otype, order_tm, start_tm, end_tm, amount. cash, remark) " \
+        sql = "insert into tb_order(cid, name, otype, order_tm, start_tm, end_tm, amount, cash, remark, insert_tm) " \
               "values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         param = (cId, name, otype, order_tm, start_tm, end_tm, amount, cash, remark, get_cur_time())
 

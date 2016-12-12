@@ -116,10 +116,9 @@ class HjsOrder:
 
 
     @staticmethod
-    def order_add(cId, order_tm, start_tm, end_tm, amount, cash, remark):
+    def order_add(cId, otype, order_tm, start_tm, end_tm, amount, cash, remark):
         bRet, custom_info = HjsCustomDao.query_node_by_cid(cId)
         name = custom_info['name'] if bRet else ''
-        otype = custom_info['otype'] if bRet else ''
 
         return HjsOrderDao.insert_node(cId, name, otype, order_tm, start_tm, end_tm, amount, cash, remark)
 
