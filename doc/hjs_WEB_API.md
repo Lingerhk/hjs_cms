@@ -32,6 +32,43 @@
 
 以下描述接口详细内容。
 
+
+##### 首页数据统计
+
+* 系统数据统计
+  
+  - `GET /api/order/pause_del`
+
+* 请求参数: 无
+
+* 响应结果：
+  ```json
+  {
+    "result": {
+        'dt_days': {
+            'days_3': {'count': 0, 'list': [....]},
+            'days_7': {'count': 1, 'list': [{'end_time': '2016-12-16', 'oid': 2001L, 'name': 'wangxi', 'cid': 1002L}]}
+        },
+        'dt_custom': {
+            'custom_can': 0L,
+            'custom_nor': 3L,
+            'custom_cnt': 4L
+        },
+        'dt_order': {
+            'order_cnt': 3L,
+            'order_stop': 1L,
+            'order_nor': 2L
+        }
+    
+    }
+  }
+
+
+
+
+
+
+
 ##### 用户管理
 
 * 用户列表-页面
