@@ -35,6 +35,14 @@ class ViewCustomAdd(ViewBase):
         return render.custom_add()
 
 
+class ViewCustomEdit(ViewBase):
+    def GET(self):
+        if not self.check_login():
+            Log.err("user not login!")
+            return web.seeother("/login")
+        return render.custom_edit()
+
+
 class ViewApiCustomList(ViewBase):
     def __init__(self):
         self._rDict = {
