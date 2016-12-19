@@ -114,7 +114,16 @@ document.onclick = hidmenu;
 <td>正常</td>
 <td>该客户老年</td>
 <td>2016-11-19 15:23</td>
-<td><a href="#">编辑</a> | <a href="#">删除</a></td>
+
+<script type="text/javascript" src="../static/js/popwin.js"></script>
+<script>
+    $$(document).ready(function() {
+        $$(".popup01 a").on('click' , function(){
+            popWin.showWin("500","430","客户编辑","custom_edit.html");
+        });
+    });
+</script>
+<td><div class="popup01"><a href="javascript:void(0)">编辑</a></div> | <a href="#">删除</a></td>
 </tr>
 
 </table>
