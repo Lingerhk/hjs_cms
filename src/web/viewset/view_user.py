@@ -56,7 +56,7 @@ class ViewApiUserAdd(ViewBase):
             "username": {'n': 'userName', 't': str, 'v': None},
             "password": {'n': 'passWord', 't': str, 'v': None},
             "phone": {'n': 'Phone', 't': str, 'v': None},
-            "email": {'n': 'Email', 't': str, 'v': None},
+            "email": {'n': 'Email', 't': str, 'v': ''},
             "priv": {'n': 'Priv', 't': int, 'v': 1}
         }
 
@@ -96,7 +96,7 @@ class ViewApiUserUpdate(ViewBase):
             "username": {'n': 'userName', 't': str, 'v': None},
             "password": {'n': 'passWord', 't': str, 'v': None},
             "phone": {'n': 'Phone', 't': str, 'v': None},
-            "email": {'n': 'Email', 't': str, 'v': None},
+            "email": {'n': 'Email', 't': str, 'v': ''},
             "priv": {'n': 'Priv', 't': str, 'v':None}
         }
 
