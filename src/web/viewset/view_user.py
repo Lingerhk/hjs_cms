@@ -27,6 +27,16 @@ class ViewUserAdd(ViewBase):
         return render.user_add()
 
 
+class ViewUserEdit(ViewBase):
+    def GET(self):
+        if not self.check_login():
+            Log.err("user not login!")
+            return web.seeother("/login")
+        
+        return render.user_edit()
+
+
+
 class ViewApiUserList(ViewBase):
     def _deal_user_list(self):
         bRet, is_admin = HjsUser.is_admin(self.get_user_name())
