@@ -98,6 +98,45 @@ class ViewApiUserAdd(ViewBase):
         return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
+class ViewApiUserInfo(ViewBase):
+    def __init__(self):
+        self._rDict = {
+            "uid": {'n': 'uId', 't': int, 'v': None}
+        }
+    
+    def _check_param(self):
+        bRet, sRet = super(ViewApiUserInfo, self)._check_param()
+        if not bRet:
+            return bRet, sRet
+        
+        return True, None
+
+    def _deal_user_info(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission do user info'
+        bRet, user_id =  HjsUser.get_user_uid(self.get_user_name())
+        if not bRet:
+            return False, user_id
+        if user_id == self.uId:
+            return False, 'do not allow delete yourself'
+
+        return HjsUser.user_info(self.uId)
+
+    def GET(self):
+        if not self.check_login():
+            return self.make_error("user not login")
+
+        bRet, sRet = self.process(self._deal_user_info)
+        if not bRet:
+            Log.err("deal_user_info: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
+
+
 class ViewApiUserUpdate(ViewBase):
     def __init__(self):
         self._rDict = {

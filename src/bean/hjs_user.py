@@ -55,6 +55,24 @@ class HjsUser:
         
         return True, sRet
 
+    
+    @staticmethod
+    def user_info(uId):
+        bRet, uInfo = HjsUserDao.query_node_by_uid(uId)
+
+        if not bRet:
+            return False, uInfo
+        
+        user_info = storage()
+        user_info.uid = uInfo['uid']
+        user_info.username = uInfo['username']
+        user_info.nickname = uInfo['nickname']
+        user_info.password = uInfo['password']
+        user_info.phone = uInfo['phone']
+        user_info.priv = uInfo['privilege']
+
+        return True, user_info
+
 
     @staticmethod
     def user_update(uId, nickName, userName, passWord, Phone, Email, Priv):
@@ -103,22 +121,10 @@ class HjsUser:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
-    print HjsUser.user_list('admin')
+    #print HjsUser.user_list('admin')
+
+
+    print HjsUser.user_info(105)
 
 
