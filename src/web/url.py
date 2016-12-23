@@ -41,7 +41,7 @@ urls = (
     "/api/order/pause_del", ViewApiOrderPauseDel,
     "/api/user/list", ViewApiUserList,
     "/api/user/add", ViewApiUserAdd,
-    "/api/user/info", ViewUserInfo,
+    "/api/user/info", ViewApiUserInfo,
     "/api/user/update", ViewApiUserUpdate,
     "/api/user/del", ViewApiUserDel,
 )
