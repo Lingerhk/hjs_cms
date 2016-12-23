@@ -126,6 +126,40 @@ class ViewApiCustomAdd(ViewBase):
         return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
 
+class ViewApiCustomInfo(ViewBase):
+    def __init__(self):
+        self._rDict = {
+            "cid": {'n': 'cId', 't': int, 'v': None}
+        }
+                
+    def _check_param(self):
+        bRet, sRet = super(ViewApiCustomInfo, self)._check_param()
+        if not bRet:
+            return bRet, sRet
+        
+        return True, None
+
+    def _deal_custom_info(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission do custom info'
+                                                                                                                        
+        return HjsCustom.custom_info(self.cId)
+
+    def GET(self):
+        if not self.check_login():
+            return self.make_error("user not login")
+        
+        bRet, sRet = self.process(self._deal_custom_info)
+        if not bRet:
+            Log.err("deal_custom_info: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
+
+
 class ViewApiCustomUpdate(ViewBase):
     def __init__(self):
         self._rDict = {

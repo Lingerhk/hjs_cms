@@ -29,6 +29,7 @@ urls = (
     "/api/data/count", ViewApiDataCount,
     "/api/custom/list", ViewApiCustomList,
     "/api/custom/add", ViewApiCustomAdd,
+    "/api/custom/info", ViewApiCustomInfo,
     "/api/custom/update", ViewApiCustomUpdate,
     "/api/custom/del", ViewApiCustomDel,
     "/api/order/list", ViewApiOrderList,
@@ -40,6 +41,7 @@ urls = (
     "/api/order/pause_del", ViewApiOrderPauseDel,
     "/api/user/list", ViewApiUserList,
     "/api/user/add", ViewApiUserAdd,
+    "/api/user/info", ViewUserInfo,
     "/api/user/update", ViewApiUserUpdate,
     "/api/user/del", ViewApiUserDel,
 )

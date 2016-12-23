@@ -82,6 +82,24 @@ class HjsCustom:
             return False, sRet
         return True, sRet
 
+        
+    @staticmethod
+    def custom_info(cId):
+        bRet, cInfo = HjsCustomDao.query_node_by_cid(cId)
+        if not bRet:
+            return False, cInfo
+        custom_info = storage()
+        custom_info.cid = int(cInfo['cid'])
+        custom_info.name = cInfo['name']
+        custom_info.address = cInfo['address']
+        custom_info.phone = cInfo['phone']
+        custom_info.ctype = cInfo['ctype']
+        custom_info.class_priv = cInfo['class']
+        custom_info.status = cInfo['status']
+        custom_info.remark = cInfo['remark']
+
+        return True, custom_info
+
 
     @staticmethod
     def custom_update(cId, nickName, Address, Phone, Ctype, Class, Status, Remark):
@@ -114,6 +132,9 @@ if __name__=="__main__":
         Remark = "xxxx"
         print HjsCustom.custom_add(nickName, Address, Phone, Ctype, Class, Status, Remark)
 
+    def test_custom_info():
+        print HjsCustom.custom_info(1002)
+
     def test_custom_update():
         cId = 1002
         nickName = "zhangxicheng"
@@ -130,5 +151,5 @@ if __name__=="__main__":
 
     # test ing ...
 
-    test_custom_list()
+    test_custom_info()
 
