@@ -107,7 +107,7 @@ class ViewApiUserInfo(ViewBase):
     def _check_param(self):
         bRet, sRet = super(ViewApiUserInfo, self)._check_param()
         if not bRet:
-            return bRet, sRet
+            return False, sRet
         
         return True, None
 
