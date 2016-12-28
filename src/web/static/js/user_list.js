@@ -52,8 +52,8 @@ function list_user(){
 
                     $("table").append(
                         "<tr><td>"+ uid +"</td>"+
-                        "<td>"+ username +"</td>"+
                         "<td>"+ nickname +"</td>"+
+                        "<td>"+ username +"</td>"+
                         "<td>"+ password +"</td>"+
                         "<td>"+ phone +"</td>"+
                         "<td>"+ priv +"</td>"+
