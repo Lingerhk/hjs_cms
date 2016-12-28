@@ -12,7 +12,8 @@
 <link href="../static/css/print.css" rel="stylesheet" type="text/css"  media="print" />
 <script src="../static/js/jquery-1.10.1.min.js"></script>
 <script src="../static/js/side.js" type="text/javascript"></script>
-
+<script src="../static/js/popwin.js" type="text/javascript"></script>
+<script src="../static/js/user_list.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -102,25 +103,8 @@ document.onclick = hidmenu;
 <th>上次登录</th>
 <th>操作</th>
 </tr>
-<tr>
-<td>100</td>
-<td>张小三</td>
-<td>xiaozhang</td>
-<td>123456</td>
-<td>152523459082</td>
-<td>管理员</td>
-<td>2016-11-14 23:32:21</td>
 
-<script type="text/javascript" src="../static/js/popwin.js"></script>
-<script>
-$$(document).ready(function() {
-$$(".popup01 a").on('click' , function(){
-popWin.showWin("500","430","用户编辑","user_edit.html");
-});
-});
-</script>
-<td><div class="popup01"><a href="javascript:void(0)">编辑</a></div> | <a href="#">删除</a></td>
-</tr>
+
 </table>
 </div>
 </div>
