@@ -1,59 +1,80 @@
 /**
  * Created by hang on 16-12-20.
  */
-/**
- * Created by hang on 16-12-20.
- */
 
+$(document).ready(function(){
+    var uid = get_request_args("uid");
 
-$(document).ready(function () {
-        var uid = get_request_args("uid");
-        $.get("/api/user/info",
-            {
-                uid: uid//发送当前用户的id
-            },
-            function (data) {
-                $(":text:eq(1)").val(data.result.nickname);
-                $(":text:eq(2)").val(data.result.username);
-                $(":text:eq(3)").val(data.result.password);
-                $(":text:eq(4)").val(data.result.phone);
-                $("dt:contains('选择')").text(data.result.priv);//用户等级
-                $("tr:contains(用户等级) dt:eq(0)").html($("tr:contains(用户等级) dt:eq(0)").html().replace(/3/g,"管理者"));
-                $("tr:contains(用户等级) dt:eq(0)").html($("tr:contains(用户等级) dt:eq(0)").html().replace(/2/g,"运营者"));
-                $("tr:contains(用户等级) dt:eq(0)").html($("tr:contains(用户等级) dt:eq(0)").html().replace(/1/g,"访客者"));
-        });
+    $.ajax({
+        type: "GET",
+        async: true,
+        dataType: "json",
+        url: "/api/user/info",
+        data: {"uid":uid},
+        error: function(){
+            console.log("/api/user/info/error");
+        },
+        success: function(data){
+            if(data.code == 201){
+                if(!data.result){
+                    return;
+                }
+                result = data.result;
+                $("#form_nickname").val(result.nickname);
+                $("#form_username").val(result.username);
+                $("#form_password").val(result.password);
+                $("#form_phone").val(result.phone);
 
-    //用户等级换值模块
-    var user_class;
-    $("tr:contains(用户等级) li:eq(0)").click(function () {
-        custom_class = 3;
-        return user_class;
+                var priv = result.priv;
+                if(priv == 3){
+                    priv = "管理员";
+                }else if(priv == 2){
+                    priv = "运营者";
+                }else if(priv == 1){
+                    priv = "访客者";
+                }else{
+                    priv = "??";
+                }
+                
+                $(".select").children("dt").html(priv);
+            }
+        }
     });
-    $("tr:contains(用户等级) li:eq(1)").click(function () {
-        custom_class = 2;
-        return user_class;
-    });
-    $("tr:contains(用户等级) li:eq(2)").click(function () {
-        custom_class = 1;
-        return user_class;
-    });
-
-
-    $(":button:eq(1)").click(function () {
-        $.post("/api/user/update",
-            {
-                uid:uid,
-                name: $(":text:eq(1)").val(),
-                nickname: $(":text:eq(2)").val(),
-                password: $(":text:eq(3)").val(),
-                phone: $(":text:eq(4)").val(),
-                priv:user_class//用户等级
-            },
-            function (data, status) {
-                alert("提交情况：" + status +"\n"+ "数据结果："+ data);
-            });
-    })
 });
+
+
+$(function(){
+    $(".select").each(function(){
+        var s = $(this);
+        var z = parseInt(s.css("z-index"));
+        var dt = $(this).children("dt");
+        var dd = $(this).children("dd");
+        var _show = function(){
+            dd.slideDown(200);
+            dt.addClass("cur");
+            s.css("z-index",z+1);
+        };
+        var _hide = function(){
+            dd.slideUp(200);
+            dt.removeClass("cur");
+            s.css("z-index",z);
+        };
+        
+        dt.click(function(){
+            dd.is(":hidden")?_show():_hide();
+        });
+        
+        dd.find("a").click(function(){
+            dt.html($(this).html());
+            hide();
+        });
+        
+        $("body").click(function(i){
+            !$(i.target).parents(".select").first().is(s) ? _hide():"";
+        });
+    });
+});
+
 
 
 /*获取URL传过来的参数*/
