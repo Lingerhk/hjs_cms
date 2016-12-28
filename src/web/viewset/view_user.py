@@ -120,8 +120,6 @@ class ViewApiUserInfo(ViewBase):
         bRet, user_id =  HjsUser.get_user_uid(self.get_user_name())
         if not bRet:
             return False, user_id
-        if user_id == self.uId:
-            return False, 'do not allow delete yourself'
 
         return HjsUser.user_info(self.uId)
 
