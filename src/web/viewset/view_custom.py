@@ -94,7 +94,7 @@ class ViewApiCustomAdd(ViewBase):
             "address": {'n': 'Address', 't': str, 'v': None},
             "phone": {'n': 'Phone', 't': str, 'v': None},
             "ctype": {'n': 'Ctype', 't': str, 'v': None},
-            "class": {'n': 'Class', 't': str, 'v': None},
+            "class_priv": {'n': 'Class', 't': str, 'v': None},
             "remark": {'n': 'Remark', 't': str, 'v': None}
         }
 
@@ -168,7 +168,7 @@ class ViewApiCustomUpdate(ViewBase):
             "address": {'n': 'Address', 't': str, 'v': None},
             "phone": {'n': 'Phone', 't': str, 'v': None},
             "ctype": {'n': 'Ctype', 't': str, 'v': None},
-            "class": {'n': 'Class', 't': str, 'v': None},
+            "class_priv": {'n': 'Class', 't': str, 'v': None},
             "status": {'n': 'Status', 't': str, 'v': None},
             "remark": {'n': 'Remark', 't': str, 'v': None}
         }

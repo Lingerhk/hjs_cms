@@ -91,7 +91,7 @@ class HjsCustomDao:
 
         dataBase = DataBase()
         sql = "insert into tb_custom(name, address, phone, ctype, class, remark, insert_tm) " \
-              "values(%s, %s, %s, %s, %s, %s, %s, %s)"
+              "values(%s, %s, %s, %s, %s, %s, %s)"
         param = (nickName, Address, Phone, Ctype, Class, Remark, get_cur_time())
 
         bRet, sRet = dataBase.insert_data(sql, param)
