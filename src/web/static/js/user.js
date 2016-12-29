@@ -16,6 +16,9 @@ function get_user_list(){
             console.log("/api/user/list/error");
         },
         success: function(data){
+            if(data.code == 101){
+                alert(data.message);
+            }
             if(data.code == 201){
                 if(!data.result){
                     $("table tr").append("<p>当前用户列表为空，请先添加用户！</p>");
@@ -35,11 +38,11 @@ function get_user_list(){
 
 
                     if(priv == 3){
-                        priv = "管理员";
+                        priv = "管理";
                     }else if(priv == 2){
-                        priv = "运营者";
+                        priv = "运营";
                     }else if(priv == 1){
-                        priv = "访客者";
+                        priv = "访客";
                     }else{
                         priv = "--";
                     }
@@ -75,6 +78,9 @@ function del_user(uid){
             console.log("/api/user/del/error");
         },
         success: function(data){
+            if(data.code == 101){
+                alert(data.message);
+            }
             if(data.code == 201){
                 get_user_list();
             }else{
@@ -104,6 +110,9 @@ function get_user_info(){
             console.log("/api/user/info/error");
         },
         success: function(data){
+            if(data.code == 101){
+                alert(data.message);
+            }
             if(data.code == 201){
                 if(!data.result){
                     return;
@@ -114,18 +123,19 @@ function get_user_info(){
                 $("#form_username").val(result.username);
                 $("#form_password").val(result.password);
                 $("#form_phone").val(result.phone);
+                $("#form_email").val(result.email);
 
                 var priv = result.priv;
                 if(priv == 3){
-                    priv = "管理员";
+                    priv = "管理";
                 }else if(priv == 2){
-                    priv = "运营者";
+                    priv = "运营";
                 }else if(priv == 1){
-                    priv = "访客者";
+                    priv = "访客";
                 }else{
                     priv = "??";
                 }
-                
+
                 $(".select").children("dt").html(priv);
             }
         }
@@ -139,13 +149,14 @@ function update_user_info(){
     var username = $("#form_username").val();
     var password = $("#form_password").val();
     var phone = $("#form_phone").val();
+    var email = $("#form_email").val();
     var priv = $(".select").children("dt").html();
 
-    if(priv == "管理员"){
+    if(priv == "管理"){
         priv = 3;         
-    }else if(priv == "运营者"){
+    }else if(priv == "运营"){
         priv = 2;
-    }else if(priv == "访客者"){
+    }else if(priv == "访客"){
         priv = 1;
     }else{
         alert("用户等级输入错误!");
@@ -163,22 +174,70 @@ function update_user_info(){
             "username": username,
             "password": password,
             "phone": phone,
-            "email": "--",
+            "email": email,
             "priv": priv
         },
         error: function(){
             console.log("/api/user/update/error");
         },
         success: function(data){
+            if(data.code == 101){
+                alert(data.message);
+            }
             if(data.code == 201){
-                alert("更新成功！");
-                list_user();
+                alert("更新成功,请关闭窗口并刷新！");
             }
         }
     });
 }
 
-/*下拉框*/
+/*添加用户*/
+function add_user(){
+    var nickname = $("#form_nickname").val();
+    var username = $("#form_username").val();
+    var password = $("#form_password").val();
+    var phone = $("#form_phone").val();
+    var email = $("#form_email").val();
+    var priv = $(".select").children("dt").html();
+
+    if(priv == "管理"){
+        priv = 3;
+    }else if(priv == "运营"){
+        priv = 2;
+    }else if(priv == "访客"){
+        priv = 1;
+    }else{
+        alert("用户等级输入错误!");
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        async: true,
+        dataType: "json",
+        url: "/api/user/add",
+        data: {
+            "nickname": nickname,
+            "username": username,
+            "password": password,
+            "phone": phone,
+            "email": email,
+            "priv": priv
+        },
+        error: function(){
+            console.log("/api/user/add/error");
+        },
+        success: function(data){
+            if(data.code == 101){
+                alert(data.message);
+            }
+            if(data.code == 201){
+                alert("添加成功,请关闭窗口！");
+            }
+        }
+    });
+}
+
+/*表单下拉框*/
 $(function(){
     $(".select").each(function(){
         var s = $(this);
@@ -195,16 +254,16 @@ $(function(){
             dt.removeClass("cur");
             s.css("z-index",z);
         };
-        
+
         dt.click(function(){
             dd.is(":hidden")?_show():_hide();
         });
-        
+
         dd.find("a").click(function(){
             dt.html($(this).html());
             hide();
         });
-        
+
         $("body").click(function(i){
             !$(i.target).parents(".select").first().is(s) ? _hide():"";
         });

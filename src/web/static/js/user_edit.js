@@ -1,5 +1,7 @@
 /**
- * Created by hang on 16-12-20.
+ * project: hjs_cms
+ * author: s0nnet
+ *
  */
 
 $(document).ready(function(){
@@ -20,6 +22,7 @@ $(document).ready(function(){
                     return;
                 }
                 result = data.result;
+                $("#form_uid").val(uid);
                 $("#form_nickname").val(result.nickname);
                 $("#form_username").val(result.username);
                 $("#form_password").val(result.password);
@@ -42,7 +45,53 @@ $(document).ready(function(){
     });
 });
 
+/*提交修改后的数据*/
+function update_user_info(){
+    var uid = $("#form_uid").val();
+    var nickname = $("#form_nickname").val();
+    var username = $("#form_username").val();
+    var password = $("#form_password").val();
+    var phone = $("#form_phone").val();
+    var priv = $(".select").children("dt").html();
 
+    if(priv == "管理员"){
+        priv = 3;         
+    }else if(priv == "运营者"){
+        priv = 2;
+    }else if(priv == "访客者"){
+        priv = 1;
+    }else{
+        alert("用户等级输入错误!");
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        async: true,
+        dataType: "json",
+        url: "/api/user/update",
+        data: {
+            "uid":uid,
+            "nickname": nickname,
+            "username": username,
+            "password": password,
+            "phone": phone,
+            "email": "--",
+            "priv": priv
+        },
+        error: function(){
+            console.log("/api/user/update/error");
+        },
+        success: function(data){
+            if(data.code == 201){
+                alert("更新成功！");
+                list_user();
+            }
+        }
+    });
+}
+
+/*下拉框*/
 $(function(){
     $(".select").each(function(){
         var s = $(this);

@@ -12,42 +12,47 @@
     <link href="../static/css/print.css" rel="stylesheet" type="text/css"  media="print" />
     <script src="../static/js/jquery-1.10.1.min.js"></script>
     <script src="../static/js/side.js" type="text/javascript"></script>
-    <script src="../static/js/user_edit.js" type="text/javascript"></script>
+    <script src="../static/js/user.js" type="text/javascript"></script>
 </head>
 
 <body>
+<script type="text/javascript">
+$$(document).ready(function() {
+    get_user_info();
+});
+</script>
+
+
+
+
 <!-- Popup -->
 <div id="Popup">
 
     <!-- SubPopup -->
     <div id="SubPopup">
-        <script type="text/javascript">
-            $$(function(){
-                $$(".select").each(function(){
-                    var s=$$(this);
-                    var z=parseInt(s.css("z-index"));
-                    var dt=$$(this).children("dt");
-                    var dd=$$(this).children("dd");
-                    var _show=function(){dd.slideDown(200);dt.addClass("cur");s.css("z-index",z+1);};
-                    var _hide=function(){dd.slideUp(200);dt.removeClass("cur");s.css("z-index",z);};
-                    dt.click(function(){dd.is(":hidden")?_show():_hide();});
-                    dd.find("a").click(function(){dt.html($$(this).html());_hide();});
-                    $$("body").click(function(i){ !$$(i.target).parents(".select").first().is(s) ? _hide():"";});})})
-        </script>
         <div class="form_boxC">
             <p>提示：带"<span class="f_cB">*</span>"号为必填项目</p>
             <table cellpadding="0" cellspacing="0">
+                <p id="form_uid" hidden="hidden">uid</p>
+                <tr>
+                    <th>用户姓名 <span class="f_cB">*</span></th>
+                    <td><div class="txtbox floatL" style="width:130px;"><input id="form_nickname" name="" type="text" size="10" value=""></div></td>
+                </tr>
                 <tr>
                     <th>用户名 <span class="f_cB">*</span></th>
-                    <td><div class="txtbox floatL" style="width:130px;"><input name="" type="text" size="9" value=""></div></td>
+                    <td><div class="txtbox floatL" style="width:130px;"><input id="form_username" name="" type="text" size="10" value=""></div></td>
                 </tr>
                 <tr>
                     <th>用户密码 <span class="f_cB">*</span></th>
-                    <td><div class="txtbox floatL" style="width:130px;"><input name="" type="text" size="9" value=""></div></td>
+                    <td><div class="txtbox floatL" style="width:130px;"><input id="form_password" name="" type="text" size="10" value=""></div></td>
                 </tr>
                 <tr>
                     <th>手机号 <span class="f_cB">*</span></th>
-                    <td><div class="txtbox floatL" style="width:130px;"><input name="" type="text" size="9" value=""></div></td>
+                    <td><div class="txtbox floatL" style="width:130px;"><input id="form_phone" name="" type="text" size="10" value=""></div></td>
+                </tr>
+                <tr>
+                    <th>联系邮箱 <span class="f_cB">*</span></th>
+                    <td><div class="txtbox floatL" style="width:190px;"><input id="form_email" name="" type="text" size="16" value=""></div></td>
                 </tr>
                 <tr>
                     <th>用户等级 <span class="f_cB">*</span></th>
@@ -56,9 +61,9 @@
                             <dl class="select">
                                 <dt>选择（管理/运营/访客）</dt>
                                 <dd><ul>
-                                    <li><a href="#">管理员</a></li>
-                                    <li><a href="#">运营员</a></li>
-                                    <li><a href="#">访客者</a></li>
+                                    <li><a href="#">管理</a></li>
+                                    <li><a href="#">运营</a></li>
+                                    <li><a href="#">访客</a></li>
                                 </ul></dd></dl>
                         </div>
                         <!-- /selectbox --></td>
@@ -71,7 +76,7 @@
 
     <div id="BtmBtn">
         <div class="btn_boxB floatR mag_l20"><input name="" type="button" value="取消" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'"></div>
-        <div class="btn_box floatR"><input name="" type="button" value="提交" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'"></div>
+        <div class="btn_box floatR"><input name="" type="button" onclick=update_user_info() value="提交" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'"></div>
     </div>
 </div>
 <!-- /Popup -->

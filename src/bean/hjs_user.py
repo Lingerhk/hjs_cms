@@ -69,6 +69,7 @@ class HjsUser:
         user_info.nickname = uInfo['nickname']
         user_info.password = uInfo['password']
         user_info.phone = uInfo['phone']
+        user_info.email = uInfo['email'];
         user_info.priv = uInfo['privilege']
 
         return True, user_info

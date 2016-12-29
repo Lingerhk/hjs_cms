@@ -1,59 +1,59 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title></title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta name="generator" content="" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<link href="../static/css/haiersoft.css" rel="stylesheet" type="text/css" media="screen,print" />
-<link href="../static/css/print.css" rel="stylesheet" type="text/css"  media="print" />
-<script src="../static/js/jquery-1.10.1.min.js"></script>
-<script src="../static/js/side.js" type="text/javascript"></script>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="generator" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <link href="../static/css/haiersoft.css" rel="stylesheet" type="text/css" media="screen,print" />
+    <link href="../static/css/print.css" rel="stylesheet" type="text/css"  media="print" />
+    <script src="../static/js/jquery-1.10.1.min.js"></script>
+    <script src="../static/js/side.js" type="text/javascript"></script>
+    <script src="../static/js/custom_add.js" type="text/javascript"></script>
 </head>
 
 <body>
 <!-- wrap_left -->
 <div class="wrap_left" id="frmTitle" name="fmTitle">
-<!-- Logo -->
-<div id="Logo"><span>人单合一</span></div>
-<!-- /Logo -->
+    <!-- Logo -->
+    <div id="Logo"><span>人单合一</span></div>
+    <!-- /Logo -->
 
-<!-- menu_list -->
-<script>
-$$(function() {
-    $$(".menu_list dd");
-    $$(".menu_list dt").click(function(){
-        $$(this).toggleClass("open").next().slideToggle("fast");
-    });
-});
-</script>
-<div class="menu_list">
-<dl>
+    <!-- menu_list -->
+    <script>
+        $$(function() {
+            $$(".menu_list dd");
+            $$(".menu_list dt").click(function(){
+                $$(this).toggleClass("open").next().slideToggle("fast");
+            });
+        });
+    </script>
+    <div class="menu_list">
+        <dl>
 
-<dt><span>数据统计</span></dt>
-<dd><a href="index.html" title="">系统数据统计</a>
+            <dt><span>数据统计</span></dt>
+            <dd><a href="index.html" title="">系统数据统计</a>
 
-<dt><span>客户管理</span></dt>
-<dd><a href="custom_list.html" title="客户列表" class="active">客户列表</a>
-<a href="custom_search.html" title="客户查找">客户查找</a>
-<a href="custom_add.html" title="添加客户">添加客户</a></dd>	
+            <dt><span>客户管理</span></dt>
+            <dd><a href="custom_list.html" title="客户列表" class="active">客户列表</a>
+                <a href="custom_search.html" title="客户查找">客户查找</a>
+                <a href="custom_add.html" title="添加客户">添加客户</a></dd>
 
-<dt><span>订单管理</span></dt>
-<dd><a href="order_all.html" title="所有订单">所有订单</a>
-<a href="order_today.html" title="当日订单">当日订单</a>
-<a href="order_cancel.html" title="已取消订单">已取消订单</a></dd>
+            <dt><span>订单管理</span></dt>
+            <dd><a href="order_all.html" title="所有订单">所有订单</a>
+                <a href="order_today.html" title="当日订单">当日订单</a>
+                <a href="order_cancel.html" title="已取消订单">已取消订单</a></dd>
 
-<dt><span>用户管理</span></dt>
-<dd><a href="user_list.html" title="用户列表">用户列表</a>
-<a href="user_add.html" title="添加用户">添加用户</a></dd>	
+            <dt><span>用户管理</span></dt>
+            <dd><a href="user_list.html" title="用户列表">用户列表</a>
+                <a href="user_add.html" title="添加用户">添加用户</a></dd>
 
-</dl>
-</div>
-<!-- /menu_list -->
+        </dl>
+    </div>
+    <!-- /menu_list -->
 </div>
 <!-- /wrap_left -->
 
@@ -65,125 +65,125 @@ $$(function() {
 
 <!-- wrap_right -->
 <div class="wrap_right">
-<header>
-<!-- Header -->
-<div id="Header">
-<!-- Head -->
-<div id="Head">
-<h1><a href="/index.html" width="398" height="26">hjs订 单 管 理 系 统</a></h1>
-<script language="javascript">
-function showmenu(id){id.style.visibility = "visible";}
-function hidmenu(){UserList.style.visibility = "hidden";}
-document.onclick = hidmenu;
-</script>
-<div class="user"><a href="javascript:showmenu(UserList)">admin</a>
-<div id="UserList"><a href="">修改</a>
-<a href="">注销</a>
-<a href="">退出</a></div>
-</div>
-</div>
-</div>
-<!-- /Header -->
-</header>
+    <header>
+        <!-- Header -->
+        <div id="Header">
+            <!-- Head -->
+            <div id="Head">
+                <h1><a href="/index.html" width="398" height="26">hjs订 单 管 理 系 统</a></h1>
+                <script language="javascript">
+                    function showmenu(id){id.style.visibility = "visible";}
+                    function hidmenu(){UserList.style.visibility = "hidden";}
+                    document.onclick = hidmenu;
+                </script>
+                <div class="user"><a href="javascript:showmenu(UserList)">admin</a>
+                    <div id="UserList"><a href="">修改</a>
+                        <a href="">注销</a>
+                        <a href="">退出</a></div>
+                </div>
+            </div>
+        </div>
+        <!-- /Header -->
+    </header>
 
-<!-- Contents -->
-<div id="Contents">
+    <!-- Contents -->
+    <div id="Contents">
 
-<div id="Popup">
-<div id="SubPopup">
-<script type="text/javascript">
-$$(function(){
-$$(".select").each(function(){
-var s=$$(this);
-var z=parseInt(s.css("z-index"));
-var dt=$$(this).children("dt");
-var dd=$$(this).children("dd");
-var _show=function(){dd.slideDown(200);dt.addClass("cur");s.css("z-index",z+1);};
-var _hide=function(){dd.slideUp(200);dt.removeClass("cur");s.css("z-index",z);};
-dt.click(function(){dd.is(":hidden")?_show():_hide();});
-dd.find("a").click(function(){dt.html($$(this).html());_hide();});
-$$("body").click(function(i){ !$$(i.target).parents(".select").first().is(s) ? _hide():"";});})})
-</script>
-<div class="form_boxC">
-<p class="f_cB pdg_t5">提示：带"<span class="f_cB">*</span>"号为必填项</p>
-<table cellpadding="0" cellspacing="0">
-<tr>
-<th width="100">客户姓名 <span class="f_cB">*</span></th>
-<td><div class="txtbox floatL" style="width:150px;"><input name="" type="text" size="12" value=""></div></td>
-</tr>
-<tr>
-<th>送奶地址 <span class="f_cB">*</span></th>
-<td><div class="txtbox floatL" style="width:300px;"><input name="" type="text" size="30" value="xxx-xxx-xxx"></div></td>
-</tr>
-<tr>
-<th>联系电话 <span class="f_cB">*</span></th>
-<td><div class="txtbox floatL" style="width:150px;"><input name="" type="text" size="12" value="123-xxxx-xxxx"></div></td>
-</tr>
-<tr>
-<th>客户类型 <span class="f_cB">*</span></th>
-<td><!-- selectbox -->
-<div class="selectbox" style="width:230px;">
-<dl class="select">
-<dt>选择（新/老）</dt>
-<dd><ul>
-<li><a href="#">新</a></li>
-<li><a href="#">老</a></li>
-</ul></dd></dl>
-</div>
-<!-- /selectbox --></td>
-</tr>
-<tr>
-<th>客户等级 <span class="f_cB">*</span></th>
-<td><!-- selectbox -->
-<div class="selectbox" style="width:230px;">
-<dl class="select">
-<dt>选择（A/B/C）</dt>
-<dd><ul>
-<li><a href="#"> A </a></li>
-<li><a href="#"> B </a></li>
-<li><a href="#"> C </a></li>
-</ul></dd></dl>
-</div>
-<!-- /selectbox --></td>
-</tr>
-<tr>
-<th>客户状态 <span class="f_cB">*</span></th>
-<td><!-- selectbox -->
-<div class="selectbox" style="width:230px;">
-<dl class="select">
-<dt>选择（正常/取消）</dt>
-<dd><ul>
-<li><a href="#">正常</a></li>
-<li><a href="#">取消</a></li>
-</ul></dd></dl>
-</div>
-<!-- /selectbox --></td>
-</tr>
+        <div id="Popup">
+            <div id="SubPopup">
+                <script type="text/javascript">
+                    $$(function(){
+                        $$(".select").each(function(){
+                            var s=$$(this);
+                            var z=parseInt(s.css("z-index"));
+                            var dt=$$(this).children("dt");
+                            var dd=$$(this).children("dd");
+                            var _show=function(){dd.slideDown(200);dt.addClass("cur");s.css("z-index",z+1);};
+                            var _hide=function(){dd.slideUp(200);dt.removeClass("cur");s.css("z-index",z);};
+                            dt.click(function(){dd.is(":hidden")?_show():_hide();});
+                            dd.find("a").click(function(){dt.html($$(this).html());_hide();});
+                            $$("body").click(function(i){ !$$(i.target).parents(".select").first().is(s) ? _hide():"";});})})
+                </script>
+                <div class="form_boxC">
+                    <p class="f_cB pdg_t5">提示：带"<span class="f_cB">*</span>"号为必填项</p>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="100">客户姓名 <span class="f_cB">*</span></th>
+                            <td><div class="txtbox floatL" style="width:150px;"><input name="" type="text" size="12" value=""></div></td>
+                        </tr>
+                        <tr>
+                            <th>送奶地址 <span class="f_cB">*</span></th>
+                            <td><div class="txtbox floatL" style="width:300px;"><input name="" type="text" size="30" value="xxx-xxx-xxx"></div></td>
+                        </tr>
+                        <tr>
+                            <th>联系电话 <span class="f_cB">*</span></th>
+                            <td><div class="txtbox floatL" style="width:150px;"><input name="" type="text" size="12" value="123-xxxx-xxxx"></div></td>
+                        </tr>
+                        <tr>
+                            <th>客户类型 <span class="f_cB">*</span></th>
+                            <td><!-- selectbox -->
+                                <div class="selectbox" style="width:230px;">
+                                    <dl class="select">
+                                        <dt>选择（新/老）</dt>
+                                        <dd><ul>
+                                            <li><a href="#">新</a></li>
+                                            <li><a href="#">老</a></li>
+                                        </ul></dd></dl>
+                                </div>
+                                <!-- /selectbox --></td>
+                        </tr>
+                        <tr>
+                            <th>客户等级 <span class="f_cB">*</span></th>
+                            <td><!-- selectbox -->
+                                <div class="selectbox" style="width:230px;">
+                                    <dl class="select">
+                                        <dt>选择（A/B/C）</dt>
+                                        <dd><ul>
+                                            <li><a href="#"> A </a></li>
+                                            <li><a href="#"> B </a></li>
+                                            <li><a href="#"> C </a></li>
+                                        </ul></dd></dl>
+                                </div>
+                                <!-- /selectbox --></td>
+                        </tr>
+                        <tr>
+                            <th>客户状态 <span class="f_cB">*</span></th>
+                            <td><!-- selectbox -->
+                                <div class="selectbox" style="width:230px;">
+                                    <dl class="select">
+                                        <dt>选择（正常/取消）</dt>
+                                        <dd><ul>
+                                            <li><a href="#">正常</a></li>
+                                            <li><a href="#">取消</a></li>
+                                        </ul></dd></dl>
+                                </div>
+                                <!-- /selectbox --></td>
+                        </tr>
 
 
-<tr>
-<th>备注</th>
-<td><div class="txtbox"><textarea name="" cols="35" rows="2"></textarea></div><p class="f_cB pdg_t5">该项可不填，最多50字</p></td>
-</tr>
-</table>
-</div>
-</div>
-<!-- SubPopup -->
+                        <tr>
+                            <th>备注</th>
+                            <td><div class="txtbox"><textarea name="" cols="35" rows="2"></textarea></div><p class="f_cB pdg_t5">该项可不填，最多50字</p></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- SubPopup -->
 
-<div id="BtmBtn">
-<div class="btn_boxB floatR mag_l20"><input name="" type="button" value="取消" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'"></div>
-<div class="btn_box floatR"><input name="" type="button" value="提交" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'"></div>
-</div>
-</div>
-<!-- /Popup -->
-<!-- /Contents -->
+            <div id="BtmBtn">
+                <div class="btn_boxB floatR mag_l20"><input name="" type="button" value="取消" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'"></div>
+                <div class="btn_box floatR"><input name="" type="button" value="提交" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'"></div>
+            </div>
+        </div=
+                <!-- /Popup -->
+                <!-- /Contents -->
 
-<!-- /footer -->
-<footer>
-<address>电子邮箱：sales@haiersoft.com  技术支持：人单合一平台项目组<br>青岛海尔软件有限公司版权所有  Copyright &copy; 2015 Haiersoft Corporation, All Rights.</address>
-</footer>
-<!-- /footer -->
-</div>
+                <!-- /footer -->
+        <footer>
+            <address>电子邮箱：sales@haiersoft.com  技术支持：人单合一平台项目组<br>青岛海尔软件有限公司版权所有  Copyright &copy; 2015 Haiersoft Corporation, All Rights.</address>
+        </footer>
+        <!-- /footer -->
+    </div>
 
 </div>
 <!-- /wrap_right -->

@@ -74,8 +74,8 @@ class HjsUserDao:
     @staticmethod
     def insert_node_user(nickName, userName, passWord, Phone, Email, Priv):
         dataBase = DataBase()
-        sql = "insert into tb_user(nickname, username, password, phone, email, privilege) values(%s, %s, %s, %s, %s, %s)"
-        param = (nickName, userName, passWord, Phone, Email, Priv)
+        sql = "insert into tb_user(nickname, username, password, phone, email, privilege, lastlogin) values(%s, %s, %s, %s, %s, %s, %s)"
+        param = (nickName, userName, passWord, Phone, Email, Priv, get_cur_time())
 
         bRet, sRet = dataBase.insert_data(sql, param)
         if not bRet:

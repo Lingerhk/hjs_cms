@@ -13,7 +13,7 @@
 <script src="../static/js/jquery-1.10.1.min.js"></script>
 <script src="../static/js/side.js" type="text/javascript"></script>
 <script src="../static/js/popwin.js" type="text/javascript"></script>
-<script src="../static/js/user_list.js" type="text/javascript"></script>
+<script src="../static/js/user.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -104,6 +104,11 @@ document.onclick = hidmenu;
 <th>操作</th>
 </tr>
 
+<script type="text/javascript">
+$$(document).ready(function() {
+    get_user_list();
+});
+</script>
 
 </table>
 </div>
