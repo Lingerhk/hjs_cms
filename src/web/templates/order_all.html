@@ -79,8 +79,8 @@ document.onclick = hidmenu;
 </script>
 <div class="user"><a href="javascript:showmenu(UserList)">admin</a>
 <div id="UserList"><a href="">修改</a>
-<a href="">注销</a>
-<a href="">退出</a></div>
+<a href="/logout">注销</a>
+<a href="/logout">退出</a></div>
 </div>
 </div>
 </div>
@@ -90,13 +90,14 @@ document.onclick = hidmenu;
 <!-- Contents -->
 <div id="Contents">
 <div id="MainForm">
-<h2>订单数据列表</h2>
+    <h2><div style="color:#169c83">所有订单列表</div></h2>
 <div class="form_boxA">
 <table cellpadding="0" cellspacing="0">
 <tr>
 <th>订单号</th>
 <th>客户编号</th>
 <th>客户名</th>
+<th>奶类型</th>
 <th>起订时间</th>
 <th>送奶开始</th>
 <th>送奶结束</th>
