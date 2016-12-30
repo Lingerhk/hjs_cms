@@ -69,7 +69,7 @@ class HjsCustom:
             custom_info.class_priv = item['class']
             custom_info.status = item['status']
             custom_info.remark = item['remark']
-            custom_info.insert_tm = str(item['insert_tm'])
+            custom_info.insert_tm = str(item['insert_tm'])[2:16]
             customList.append(custom_info)
 
         return True, HjsCustom._page_data(customList, status, search, pg)
