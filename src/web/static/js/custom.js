@@ -4,17 +4,35 @@
  */
 
 
-/*用户列表*/
+/*客户列表-展示*/
 function get_custom_list(){
-    var page = 1;
-    var length = 20;
+    var req_type = "GET";
+    var req_url = "/api/custom/list";
+    var req_data = {"page": 1, "length":20};
+    ajax_request(req_type, req_url, req_data);
+}
+
+/*客户列表-查找*/
+function search_custom_list(){
+
+    var search = $("#seach_data").val();
+
+    var req_type = "POST";
+    var req_url = "/api/custom/list";
+    var req_data = {"page":1, "length":20, "search": search};
+    ajax_request(req_type, req_url, req_data);
+}
+
+
+/* ajax 请求客户列表数据*/
+function ajax_request(req_type, req_url, req_data){
 
     $.ajax({
-        type: "GET",
+        type: req_type,
         async: true,
         dataType: "json",
-        url: "/api/custom/list",
-        data: {"page": page, "length": length},
+        url: req_url,
+        data: req_data,
         error: function(){
             console.log("/api/custom/list/error");
         },
@@ -69,7 +87,7 @@ function get_custom_list(){
                         "<td>"+ status +"</td>"+
                         "<td>"+ remark +"</td>"+
                         "<td>"+ insert_tm +"</td>"+
-                        "<td><div class='popup01'><a href='#' onclick=edit_custom('"+cid+"')>编辑</a></div> | <a href='#' onclick=del_custom('"+ cid +"')>删除</a></td></tr>"
+                        "<td><div class='popup01'><a href='#' onclick=add_order('"+cid+"')>订单</a> | <a href='#' onclick=edit_custom('"+cid+"')>编辑</a></div> | <a href='#' onclick=del_custom('"+ cid +"')>删除</a></td></tr>"
                     );
                 }
             }
