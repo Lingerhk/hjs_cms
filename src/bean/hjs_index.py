@@ -15,6 +15,7 @@ if __name__ == "__main__":
 from web.utils import *
 from hjs_cfg import *
 from bs_util import *
+from bs_time import *
 from hjs_order_dao import *
 from hjs_custom_dao import *
 
@@ -29,7 +30,7 @@ class HjsIndex:
         bRet, custom_nor = HjsCustomDao.query_node_by_status('normal')
         if not bRet: custom_nor = 0
 
-        bRet, custom_can = HjsCustomDao.query_node_by_status('cancel')
+        bRet, custom_can = HjsCustomDao.query_node_by_status('delete')
         if not bRet: custom_can = 0
 
         return  {
@@ -50,10 +51,16 @@ class HjsIndex:
         bRet, order_stop = HjsOrderDao.query_node_by_status('stop')
         if not bRet: order_stop = 0
 
+        order_today = '开发中...'
+        order_today_stop = '开发中...'
+
+
         return {
             "order_cnt": order_cnt, 
             "order_nor": order_nor,
-            "order_stop": order_stop
+            "order_stop": order_stop,
+            "order_today": order_today,
+            "order_today_stop": order_today_stop
         }
 
 
@@ -76,7 +83,8 @@ class HjsIndex:
         datas = {
             "dt_custom": HjsIndex._get_custom_data(),
             "dt_order": HjsIndex._get_order_data(),
-            "dt_days": HjsIndex._get_expire_order()
+            "dt_days": HjsIndex._get_expire_order(),
+            "update_date": str(get_cur_day(0, "%Y-%m-%d"))
         }
         
         return True, datas
