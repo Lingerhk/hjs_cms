@@ -33,12 +33,22 @@ class ViewOrderCancel(ViewBase):
             return web.seeother("/login")
         return render.order_cancel()
 
+
 class ViewOrderAdd(ViewBase):
     def GET(self):
         if not self.check_login():
             Log.err("user not login");
-            return web.seeother("/login");
+            return web.seeother("/login")
         return render.order_add()
+
+
+class ViewOrderEdit(ViewBase):
+    def GET(self):
+        if not self.check_login():
+            Log.err("user not login")
+            return web.seeother("/login")
+        return render.order_edit()
+
 
 
 class ViewApiOrderList(ViewBase):
