@@ -165,7 +165,7 @@ class HjsOrderDao:
     @staticmethod
     def query_node_by_days(days):
         dataBase = DataBase()
-        sql = "select oid, cid, name, date_format(end_tm, '%%Y-%%m-%%d') as end_time from tb_order " \
+        sql = "select oid, cid, name, date_format(end_tm, '%%Y-%%m-%%d') as end_tm from tb_order " \
               "where end_tm >= curdate() and end_tm < curdate() + %s"
         param = (days, )
 
