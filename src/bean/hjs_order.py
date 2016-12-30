@@ -68,13 +68,13 @@ class HjsOrder:
             order_info.oid = int(item['oid'])
             order_info.cid = int(item['cid'])
             order_info.name = item['name']
-            order_info.order_tm = str(item['order_tm'])
-            order_info.start_tm = str(item['start_tm'])
-            order_info.end_tm = str(item['end_tm'])
+            order_info.order_tm = str(item['order_tm'])[2:16]
+            order_info.start_tm = str(item['start_tm'])[2:]
+            order_info.end_tm = str(item['end_tm'])[2:]
             order_info.amount = item['amount']
             order_info.cash = item['cash']
             order_info.remark = item['remark']
-            order_info.insert_tm = str(item['insert_tm'])
+            order_info.insert_tm = str(item['insert_tm'])[2:16]
             orderList.append(order_info)
 
         return True, HjsOrder._page_data(orderList, status, search, pg)
