@@ -109,8 +109,13 @@ class HjsUserDao:
         
         return True, sRet
 
-
-
+    @staticmethod
+    def update_lastlogin(uId):
+        dataBase = DataBase()
+        sql = "update tb_user set lastlogin = %s where uid = %s"
+        param = (get_cur_time(), uId)
+        
+        return dataBase.update_data(sql, param)
 
 
 

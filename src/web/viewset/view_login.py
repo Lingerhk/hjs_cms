@@ -37,6 +37,8 @@ class ViewLogin(ViewBase):
 
         Session.set_val("username", self.userName)
         web.setcookie("username", self.userName)
+        HjsUserDao.update_lastlogin(sRet['uid'])
+        
         return True, None
 
     def POST(self):
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     def test_login():
         Session.session = {}
         viewLogin = ViewLogin()
-        viewLogin.userName = 'moresec'
+        viewLogin.userName = 'test'
         viewLogin.password = 'test'
         bRet, sRet = viewLogin._deal_login()
         if not bRet:
