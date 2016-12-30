@@ -38,6 +38,8 @@ urls = (
     "/api/order/today", ViewApiOrderToday,
     "/api/order/add", ViewApiOrderAdd,
     "/api/order/del", ViewApiOrderDel,
+    "/api/order/info", ViewApiOrderInfo,
+    "/api/order/update", ViewApiOrderUpdate,
     "/api/order/pause_list", ViewApiOrderPauseList,
     "/api/order/pause_add", ViewApiOrderPauseAdd,
     "/api/order/pause_del", ViewApiOrderPauseDel,

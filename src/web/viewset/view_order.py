@@ -183,6 +183,79 @@ class ViewApiOrderDel(ViewBase):
 
         return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
 
+class ViewApiOrderInfo(ViewBase):
+    def __init__(self):
+        self._rDict = {
+            "oid": {'n': "oId", 't': int, 'v': None}
+        }
+
+    def _check_param(self):
+        bRet, sRet = super(ViewApiOrderInfo, self)._check_param()
+        if not bRet:
+            return False, sRet
+        return True, None
+
+    def _deal_order_info(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission to do this'
+
+        return HjsOrder.order_info(self.oId)
+
+    def GET(self):
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_info)
+        if not bRet:
+            Log.err("deal_order_info: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(sRet)
+
+
+
+class ViewApiOrderUpdate(ViewBase):
+    def __init__(self):
+        self._rDict = {
+            "oid": {'n': "oId", 't': int, 'v': None},
+            "otype": {'n': "otype", 't': str, 'v': None},
+            "order_tm": {'n': "order_tm", 't': str, 'v': ''},
+            "start_tm": {'n': "start_tm", 't': str, 'v': None},
+            "end_tm": {'n': "end_tm", 't': str, 'v': None},
+            "amount": {'n': "amount", 't': str, 'v': None},
+            "cash": {'n': "cash", 't': str, 'v': None},
+            "remark": {'n': "remark", 't': str, 'v': None}
+        }
+
+    def _check_param(self):
+        bRet, sRet = super(ViewApiOrderUpdate, self)._check_param()
+        if not bRet:
+            return False, sRet
+        return True, None
+
+    def _deal_order_update(self):
+        bRet, is_admin = HjsUser.is_admin(self.get_user_name())
+        if not bRet:
+            return False, sRet
+        if not is_admin:
+            return False, 'No permission to do this'
+
+        return HjsOrder.order_update(self.oId, self.otype, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash, self.remark)
+
+    def POST(self):
+        bRet, sRet = self.check_login()
+        if not bRet:
+            return web.seeother("/login")
+        bRet, sRet = self.process(self._deal_order_update)
+        if not bRet:
+            Log.err("deal_order_update: %s" % (str(sRet)))
+            return self.make_error(sRet)
+
+        return self.make_response(ViewBase.RetMsg.MSG_SUCCESS)
+
 
 class ViewApiOrderPauseList(ViewBase):
     def _deal_order_pause_list(self):

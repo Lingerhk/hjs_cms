@@ -53,6 +53,18 @@ class HjsOrderDao:
 
 
     @staticmethod
+    def update_node(oId, otype, order_tm, start_tm, end_tm, amount, cash, remark):
+
+        dataBase = DataBase()
+        sql = "update tb_order set otype=%s, order_tm=%s, start_tm=%s, end_tm=%s, amount=%s, cash=%s, " \
+              "remark=%s where oid= %s"
+        param = (otype, order_tm, start_tm, end_tm, amount, cash, remark, oId)
+
+        bRet, sRet = dataBase.update_data(sql, param)
+        return bRet, sRet
+
+
+    @staticmethod
     def update_node_status(oId, status):
         dataBase = DataBase()
         sql = "update tb_order set status = %s where oid = %s"

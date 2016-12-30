@@ -69,9 +69,9 @@ class HjsOrder:
             order_info.cid = int(item['cid'])
             order_info.name = item['name']
             order_info.otype = item['otype'];
-            order_info.order_tm = str(item['order_tm'])[2:10]
-            order_info.start_tm = str(item['start_tm'])[2:]
-            order_info.end_tm = str(item['end_tm'])[2:]
+            order_info.order_tm = str(item['order_tm'])[:10]
+            order_info.start_tm = str(item['start_tm'])
+            order_info.end_tm = str(item['end_tm'])
             order_info.amount = item['amount']
             order_info.cash = item['cash']
             order_info.remark = item['remark']
@@ -125,14 +125,45 @@ class HjsOrder:
 
 
     @staticmethod
+    def order_update(oId, otype, order_tm, start_tm, end_tm, amount, cash, remark):
+        return HjsOrderDao.update_node(oId, otype, order_tm, start_tm, end_tm, amount, cash, remark)
+
+
+    @staticmethod
     def order_del(oId):
         return HjsOrderDao.update_node_status(oId, 'stop')
 
+
+    @staticmethod
+    def order_info(oId):
+        bRet, sRet = HjsOrderDao.query_node_by_oid(oId)
+        if not bRet:
+            return False, sRet
+        
+        order_info = storage()
+        order_info.oid = int(sRet['oid'])
+        order_info.cid = int(sRet['cid'])
+        order_info.name = sRet['name']
+        order_info.otype = sRet['otype']
+        order_info.order_tm = str(sRet['order_tm'])[:10]
+        order_info.start_tm = str(sRet['start_tm'])
+        order_info.end_tm = str(sRet['end_tm'])
+        order_info.amount = sRet['amount']
+        order_info.cash = sRet['cash']
+        order_info.remark = sRet['remark']
+
+        return True, order_info
 
 
 
 if __name__ == "__main__":
     
-    print HjsOrder.order_today() 
+    #print HjsOrder.order_today() 
+
+    print HjsOrder.order_info(2003)
+
+
+
+    pass
 
 

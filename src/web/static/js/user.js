@@ -33,6 +33,7 @@ function get_user_list(){
                     var username = user_info["username"];
                     var password = user_info["password"];
                     var phone = user_info["phone"];
+                    var email = user_info["email"];
                     var priv = user_info["priv"];
                     var lastlogin = user_info["lastlogin"];
 
@@ -53,6 +54,7 @@ function get_user_list(){
                         "<td>"+ username +"</td>"+
                         "<td>"+ password +"</td>"+
                         "<td>"+ phone +"</td>"+
+                        "<td>"+ email +"</td>"+
                         "<td>"+ priv +"</td>"+
                         "<td>"+ lastlogin +"</td>"+
                         "<td><div class='popup01'><a href='#' onclick=edit_user('"+uid+"')>编辑</a></div> | <a href='#' onclick=del_user('"+ uid +"')>删除</a></td></tr>"

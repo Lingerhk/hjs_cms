@@ -167,7 +167,7 @@ function add_order_info(){
 /*编辑订单*/
 function edit_order(oid){
     var params = "oid=" + oid;
-    popWin.showWin("500","465","编辑订单","order_edit.html", params);
+    popWin.showWin("500","508","编辑订单","order_edit.html", params);
 }
 
 
@@ -175,17 +175,75 @@ function edit_order(oid){
 function get_order_info(){
     var oid = get_request_args("oid");
 
+    $.ajax({
+        type: "GET" ,
+        async: true,
+        dataType: "json",
+        url: "/api/order/info",
+        data:{"oid": oid},
+        error: function(){
+            console.log("/api/order/info/error");
+        },
+        success: function(data){
+            if(data.code == 201){
+                if(!data.result){
+                    return;
+                }
+                result = data.result;
+                $("#form_oid").val(result.oid);
+                $("#form_name").val(result.name);
+                $("#form_otype").val(result.otype);
+                $("#form_order_tm").val(result.order_tm);
+                $("#form_start_tm").val(result.start_tm);
+                $("#form_end_tm").val(result.end_tm);
+                $("#form_amount").val(result.amount);
+                $("#form_cash").val(result.cash);
+                $("#form_remark").val(result.remark);
+            }
+        }
+    });
 
 }
 
 
-
-
 /*提交修改好的订单数据*/
 function update_order_info(){
+    var oid = $("#form_oid").val();
+    var otype = $("#form_otype").val();
+    var order_tm = $("#form_order_tm").val();
+    var start_tm = $("#form_start_tm").val();
+    var end_tm = $("#form_end_tm").val();
+    var amount = $("#form_amount").val();
+    var cash = $("#form_cash").val();
+    var remark = $("#form_remark").val();
     
-
-
+    $.ajax({
+        type: "POST",
+        async: true,
+        dataType: "json",
+        url: "/api/order/update",
+        data: {
+            "oid":oid,
+            "otype": otype,
+            "order_tm": order_tm,
+            "start_tm": start_tm,
+            "end_tm": end_tm,
+            "amount": amount,
+            "cash": cash,
+            "remark": remark
+        },
+        error: function(){
+            console.log("/api/order/update/error");
+        },
+        success: function(data){
+            if(data.code == 101){
+                alert(data.message);
+            }
+            if(data.code == 201){
+                alert("更新成功,请关闭窗口并刷新！");
+            }
+        }
+    });
 }
 
 
