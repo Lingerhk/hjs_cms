@@ -49,6 +49,12 @@ class ViewOrderEdit(ViewBase):
             return web.seeother("/login")
         return render.order_edit()
 
+class ViewOrderSearch(ViewBase):
+    def GET(self):
+        if not self.check_login():
+            Log.err("user not login")
+            return web.seeother("/login")
+        return render.order_search()
 
 
 class ViewApiOrderList(ViewBase):
@@ -56,7 +62,7 @@ class ViewApiOrderList(ViewBase):
         self._rDict = {
             "page": {'n': "page", 't': int, 'v': 1},
             "length": {'n': "length", 't': int, 'v': 20},
-            "status": {'n': "status", 't': str, 'v': 'normal'},
+            "status": {'n': "status", 't': str, 'v': 'all'},
             "search": {'n': "search", 't': str, 'v': ''}
         }
     
@@ -227,6 +233,7 @@ class ViewApiOrderUpdate(ViewBase):
             "end_tm": {'n': "end_tm", 't': str, 'v': None},
             "amount": {'n': "amount", 't': str, 'v': None},
             "cash": {'n': "cash", 't': str, 'v': None},
+            "status": {'n': "status", 't': str, 'v': None},
             "remark": {'n': "remark", 't': str, 'v': None}
         }
 
@@ -243,7 +250,7 @@ class ViewApiOrderUpdate(ViewBase):
         if not is_admin:
             return False, 'No permission to do this'
 
-        return HjsOrder.order_update(self.oId, self.otype, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash, self.remark)
+        return HjsOrder.order_update(self.oId, self.otype, self.order_tm, self.start_tm, self.end_tm, self.amount, self.cash,self.status, self.remark)
 
     def POST(self):
         bRet, sRet = self.check_login()

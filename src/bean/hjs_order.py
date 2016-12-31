@@ -74,6 +74,7 @@ class HjsOrder:
             order_info.end_tm = str(item['end_tm'])
             order_info.amount = item['amount']
             order_info.cash = item['cash']
+            order_info.status = item['status']
             order_info.remark = item['remark']
             order_info.insert_tm = str(item['insert_tm'])[2:16]
             orderList.append(order_info)
@@ -125,8 +126,8 @@ class HjsOrder:
 
 
     @staticmethod
-    def order_update(oId, otype, order_tm, start_tm, end_tm, amount, cash, remark):
-        return HjsOrderDao.update_node(oId, otype, order_tm, start_tm, end_tm, amount, cash, remark)
+    def order_update(oId, otype, order_tm, start_tm, end_tm, amount, cash, status, remark):
+        return HjsOrderDao.update_node(oId, otype, order_tm, start_tm, end_tm, amount, cash, status, remark)
 
 
     @staticmethod
@@ -150,6 +151,7 @@ class HjsOrder:
         order_info.end_tm = str(sRet['end_tm'])
         order_info.amount = sRet['amount']
         order_info.cash = sRet['cash']
+        order_info.status = sRet['status']
         order_info.remark = sRet['remark']
 
         return True, order_info

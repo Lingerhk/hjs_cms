@@ -4,17 +4,44 @@
  */
 
 
-/*订单列表*/
+
+/*订单列表-展示*/
 function get_order_list(){
-    var page = 1;
-    var length = 1000;
+    var req_type = "GET";
+    var req_url = "/api/order/list";
+    var req_data = {"page": 1, "length":1000};
+    ajax_request(req_type, req_url, req_data);
+}
+
+/*订单列表-查找*/
+function search_order_list(){
+    var search = $("#search_data").val();
+    var status = $(".select").children(".search_status").html();
+    if(status =="正常"){
+        status = "normal";
+    }else if(status == "已取消"){
+        status = "stop";
+    }else{
+        status = "all";
+    }
+
+    var req_type = "POST";
+    var req_url = "/api/order/list";
+    var req_data = {"page":1, "length":1000, "status":status, "search": search};
+    ajax_request(req_type, req_url, req_data);
+}
+
+
+/* ajax 请求客户列表数据*/
+function ajax_request(req_type, req_url, req_data){
+
 
     $.ajax({
-        type: "GET",
+        type: req_type,
         async: true,
         dataType: "json",
-        url: "/api/order/list",
-        data: {"page": page, "length": length},
+        url: req_url,
+        data: req_data,
         error: function(){
             console.log("/api/order/list/error");
         },
@@ -40,8 +67,17 @@ function get_order_list(){
                     var end_tm = order_info["end_tm"];
                     var amount= order_info["amount"];
                     var cash = order_info["cash"];
+                    var status = order_info["status"];
                     var remark = order_info["remark"];
                     var insert_tm = order_info["insert_tm"];
+
+                    if(status=="normal"){
+                        status = "正常";
+                    }else if(status == "stop"){
+                        status = "已取消";
+                    }else{
+                        status = status;
+                    }
 
                     $("table").append(
                         "<tr><td>"+ oid +"</td>"+
@@ -53,6 +89,7 @@ function get_order_list(){
                         "<td>"+ end_tm +"</td>"+
                         "<td>"+ amount +"</td>"+
                         "<td>"+ cash +"</td>"+
+                        "<td>"+ status +"</td>"+
                         "<td>"+ remark +"</td>"+
                         "<td>"+ insert_tm +"</td>"+
                         "<td><div class='popup01'><a href='#' onclick=edit_order('"+oid+"')>编辑</a></div> | <a href='#' onclick=del_order('"+ oid +"')>删除</a></td></tr>"
@@ -135,6 +172,7 @@ function add_order_info(){
     var cash = $("#form_cash").val();
     var remark = $("#form_remark").val();
 
+
     $.ajax({
         type: "POST",
         async: true,
@@ -168,7 +206,7 @@ function add_order_info(){
 /*编辑订单*/
 function edit_order(oid){
     var params = "oid=" + oid;
-    popWin.showWin("500","508","编辑订单","order_edit.html", params);
+    popWin.showWin("500","550","编辑订单","order_edit.html", params);
 }
 
 
@@ -200,6 +238,16 @@ function get_order_info(){
                 $("#form_amount").val(result.amount);
                 $("#form_cash").val(result.cash);
                 $("#form_remark").val(result.remark);
+
+                var status = result.status;
+                if(status=="normal"){
+                    status = "正常";
+                }else if(status == "stop"){
+                    status = "已取消";
+                }else{
+                    status = status;
+                }
+                $(".select").children(".status").html(status);
             }
         }
     });
@@ -218,6 +266,15 @@ function update_order_info(){
     var cash = $("#form_cash").val();
     var remark = $("#form_remark").val();
     
+    var status = $(".select").children(".status").html();
+    if(status == "正常"){
+        status = "normal";
+    }else if(status == "已取消"){
+        status = "stop";
+    }else{
+        status = status;
+    }
+
     $.ajax({
         type: "POST",
         async: true,
@@ -231,6 +288,7 @@ function update_order_info(){
             "end_tm": end_tm,
             "amount": amount,
             "cash": cash,
+            "status": status,
             "remark": remark
         },
         error: function(){
@@ -246,6 +304,40 @@ function update_order_info(){
         }
     });
 }
+
+
+/*表单下拉框*/
+$(function(){
+    $(".select").each(function(){
+        var s = $(this);
+        var z = parseInt(s.css("z-index"));
+        var dt = $(this).children("dt");
+        var dd = $(this).children("dd");
+        var _show = function(){
+            dd.slideDown(200);
+            dt.addClass("cur");
+            s.css("z-index",z+1);
+        };
+        var _hide = function(){
+            dd.slideUp(200);
+            dt.removeClass("cur");
+            s.css("z-index",z);
+        };
+
+        dt.click(function(){
+            dd.is(":hidden")?_show():_hide();
+        });
+
+        dd.find("a").click(function(){
+            dt.html($(this).html());
+            hide();
+        });
+
+        $("body").click(function(i){
+            !$(i.target).parents(".select").first().is(s) ? _hide():"";
+        });
+    });
+});
 
 
 /*获取URL传过来的参数*/

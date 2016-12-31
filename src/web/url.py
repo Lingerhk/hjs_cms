@@ -23,6 +23,7 @@ urls = (
     "/order_cancel.html", ViewOrderCancel,
     "/order_add.html", ViewOrderAdd,
     "/order_edit.html", ViewOrderEdit,
+    "/order_search.html", ViewOrderSearch,
     "/user_list.html", ViewUserList,
     "/user_add.html", ViewUserAdd,
     "/user_edit.html", ViewUserEdit,
