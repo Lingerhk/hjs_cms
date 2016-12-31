@@ -23,11 +23,11 @@ function get_order_list(){
                 alert(data.message);
             }
             if(data.code == 201){
+                $("table tr:not(:first)").remove();
                 if(!data.result){
-                    $("table tr").append("<p>当前订单列表为空，请先添加订单！</p>");
+                    $("#data_count").html("0");
                     return;
                 }
-                $("table tr:not(:first)").empty();
                 var dataLen = data.result.order_list.length;
                 for(var i = 0; i < dataLen; i++){
                     var order_info = data.result.order_list[i];
@@ -57,6 +57,7 @@ function get_order_list(){
                         "<td>"+ insert_tm +"</td>"+
                         "<td><div class='popup01'><a href='#' onclick=edit_order('"+oid+"')>编辑</a></div> | <a href='#' onclick=del_order('"+ oid +"')>删除</a></td></tr>"
                     );
+                    $("#data_count").html(dataLen);
                 }
             }
         }
