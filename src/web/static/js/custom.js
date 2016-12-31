@@ -14,12 +14,19 @@ function get_custom_list(){
 
 /*客户列表-查找*/
 function search_custom_list(){
-
-    var search = $("#seach_data").val();
+    var search = $("#search_data").val();
+    var status = $(".select").children(".search_status").html();
+    if(status =="正常"){
+        status = "normal";
+    }else if(status == "已删除"){
+        status = "delete";
+    }else{
+        status = "all";
+    }
 
     var req_type = "POST";
     var req_url = "/api/custom/list";
-    var req_data = {"page":1, "length":20, "search": search};
+    var req_data = {"page":1, "length":1000, "status":status, "search": search};
     ajax_request(req_type, req_url, req_data);
 }
 
@@ -41,11 +48,11 @@ function ajax_request(req_type, req_url, req_data){
                 alert(data.message);
             }
             if(data.code == 201){
+                $("table tr:not(:first)").remove();
                 if(!data.result){
-                    $("table tr").append("<p>当前用户列表为空，请先添加用户！</p>");
+                    $("#data_count").html("0");
                     return;
                 }
-                $("table tr:not(:first)").empty();
                 var dataLen = data.result.custom_list.length;
                 for(var i = 0; i < dataLen; i++){
                     var custom_info = data.result.custom_list[i];
@@ -89,6 +96,7 @@ function ajax_request(req_type, req_url, req_data){
                         "<td>"+ insert_tm +"</td>"+
                         "<td><div class='popup01'><a href='#' onclick=add_order('"+cid+"')>订单</a> | <a href='#' onclick=edit_custom('"+cid+"')>编辑</a></div> | <a href='#' onclick=del_custom('"+ cid +"')>删除</a></td></tr>"
                     );
+                    $("#data_count").html(dataLen);
                 }
             }
         }
