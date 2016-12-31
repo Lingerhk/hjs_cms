@@ -8,7 +8,7 @@
 function get_custom_list(){
     var req_type = "GET";
     var req_url = "/api/custom/list";
-    var req_data = {"page": 1, "length":20};
+    var req_data = {"page": 1, "length":1000};
     ajax_request(req_type, req_url, req_data);
 }
 
