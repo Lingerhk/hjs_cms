@@ -162,8 +162,9 @@ if __name__ == "__main__":
     
     #print HjsOrder.order_today() 
 
-    print HjsOrder.order_info(2003)
-
+    #print HjsOrder.order_info(2003)
+    
+    print HjsOrder.order_today()
 
 
     pass

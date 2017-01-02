@@ -192,7 +192,7 @@ class HjsOrderDao:
 if __name__ == "__main__":
     #print HjsOrderDao.query_node_by_status('stop')
 
-    print HjsOrderDao.query_node_by_date('normal', '2016-12-11')
+    print HjsOrderDao.query_node_by_date('normal', '2017-01-02')
 
 
 

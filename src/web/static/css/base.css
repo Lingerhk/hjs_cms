@@ -43,7 +43,7 @@ address{ background-color:#FFF; padding:20px 0px; text-align:center; font-style:
 
 #Logo{height:128px;line-height:128px;text-align:center;background-color:#1e628f;padding-top:22px;}
 *html #Logo{height:150px;}
-#Logo span{width:107px;height:107px;margin:0px auto;background:url(../images/common/logo.gif) no-repeat left top;text-indent:-9999px;display:block;}
+#Logo span{width:107px;height:107px;margin:0px auto;background:url(../images/common/logo.png) no-repeat left top;text-indent:-9999px;display:block;}
 #Header{background-color:#FFF;}
 #Header h1{padding:10px 0px 0px 30px;display:block;float:left;}
 #Header h1 img{display:block;}
