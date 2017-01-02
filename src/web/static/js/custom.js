@@ -103,6 +103,110 @@ function ajax_request_custom(req_type, req_url, req_data){
     });
 }
 
+
+/*客户数据CSV文件导出*/
+function export_custom_list(){
+
+    $.ajax({
+        type: "GET",
+        async: true,
+        dataType: "json",
+        url: "/api/custom/list",
+        data: {"page": 1, "length":10000},
+        error: function(){
+            console.log("/api/custom/list/error");
+        },
+        success: function(data){
+            if(data.code == 101){
+                alert("export fail: "+data.message);
+            }
+            if(data.code == 201){
+                if(!data.result){
+                    return;
+                }
+                jsonData = data.result.custom_list;
+                custom_jsonTocsv(jsonData, true);
+            }
+        }  
+    });
+}
+
+/*custom: jsonTocsv*/
+function custom_jsonTocsv(JSONData, ShowLabel) {
+    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+    var CSV = '';
+
+    if (ShowLabel) {
+　　　　  //add column index
+        var row = "客户号,客户姓名,配送地址,电话,客户类型,客户等级,客户状态,备注,添加时间";
+        CSV += row + '\r\n';
+    }
+    
+    //loop each column
+    for (var i = 0; i < arrData.length; i++) {
+        var row = "";
+
+        item = arrData[i];
+
+        var ctype = item.ctype;
+        if(ctype=="O"){
+            ctype = "老";
+        }else if(ctype=="N"){
+            ctype = "新";
+        }else{
+            ctype = ctype;
+        }
+
+        var status = item.status;
+        if(status=="normal"){
+            status = "正常";
+        }else if(status=="delete"){
+            status = "已删除";
+        }else{
+            status = status;
+        }
+
+        row += '"'+ item.cid +'",'+
+               '"'+ item.name +'",'+
+               '"'+ item.address +'",'+
+               '"'+ item.phone +'",'+
+               '"'+ ctype +'",'+
+               '"'+ item.class_priv +'",'+
+               '"'+ status +'",'+
+               '"'+ item.remark +'",'+
+               '"'+ item.insert_tm +'"';
+
+        CSV += row + '\r\n';
+    }
+
+    if (CSV == '') {        
+        alert("Invalid data");
+        return;
+    }   
+    
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth()+1;
+    var date = d.getDate();
+    var hour = d.getHours();
+    var minute = d.getMinutes();
+    var timestr = year+"_"+month+"_"+date+"_"+hour+"_"+minute;
+
+    var fileName = "客户列表_导出_"+timestr;
+    var uri = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURI(CSV);
+    
+    var link = document.createElement("a");    
+    link.href = uri;
+    
+    link.style = "visibility:hidden";
+    link.download = fileName + ".csv";
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
 /*客户删除*/
 function del_custom(cid){
     if(!confirm("确认删除该用户？")){
