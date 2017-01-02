@@ -101,6 +101,103 @@ function ajax_request_order(req_type, req_url, req_data){
     });
 }
 
+/*订单数据CSV文件导出*/
+function export_order_list(){
+
+    $.ajax({
+        type: "GET",
+        async: true,
+        dataType: "json",
+        url: "/api/order/list",
+        data: {"page": 1, "length":10000},
+        error: function(){
+            console.log("/api/order/list/error");
+        },
+        success: function(data){
+            if(data.code == 101){
+                alert("export fail: "+data.message);
+            }
+            if(data.code == 201){
+                if(!data.result){
+                    return;
+                }
+                jsonData = data.result.order_list;
+                order_jsonTocsv(jsonData, true);
+            }
+        }  
+    });
+}
+
+/*order: jsonTocsv*/
+function order_jsonTocsv(JSONData, ShowLabel) {
+    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+    var CSV = '';
+
+    if (ShowLabel) {
+　　　　  //add column index
+        var row = "订单号,客户号,客户姓名,奶类,起订时间,送奶开始,送奶结束,价格,实收,状态,备注,添加时间";
+        CSV += row + '\r\n';
+    }
+    
+    //loop each column
+    for (var i = 0; i < arrData.length; i++) {
+        var row = "";
+
+        item = arrData[i];
+
+        var status = item.status;
+        if(status=="normal"){
+            status = "正常";
+        }else if(status=="stop"){
+            status = "已取消";
+        }else{
+            status = status;
+        }
+
+        row += '"'+ item.oid +'",'+
+               '"'+ item.cid +'",'+
+               '"'+ item.name +'",'+
+               '"'+ item.otype +'",'+
+               '"'+ item.order_tm +'",'+
+               '"'+ item.start_tm +'",'+
+               '"'+ item.end_tm +'",'+
+               '"'+ item.amount +'",'+
+               '"'+ item.cash +'",'+
+               '"'+ status +'",'+
+               '"'+ item.remark +'",'+
+               '"'+ item.insert_tm +'"';
+
+        CSV += row + '\r\n';
+    }
+
+    if (CSV == '') {        
+        alert("Invalid data");
+        return;
+    }   
+    
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth()+1;
+    var date = d.getDate();
+    var hour = d.getHours();
+    var minute = d.getMinutes();
+    var timestr = year+"_"+month+"_"+date+"_"+hour+"_"+minute;
+
+    var fileName = "订单列表_导出_"+timestr;
+    var uri = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURI(CSV);
+    
+    var link = document.createElement("a");    
+    link.href = uri;
+    
+    link.style = "visibility:hidden";
+    link.download = fileName + ".csv";
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
 /*订单删除*/
 function del_order(oid){
     if(!confirm("确认删除该用户？")){
