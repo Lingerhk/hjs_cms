@@ -330,7 +330,7 @@ $(function(){
 
         dd.find("a").click(function(){
             dt.html($(this).html());
-            hide();
+            _hide();
         });
 
         $("body").click(function(i){
