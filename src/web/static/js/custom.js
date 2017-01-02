@@ -9,7 +9,7 @@ function get_custom_list(){
     var req_type = "GET";
     var req_url = "/api/custom/list";
     var req_data = {"page": 1, "length":1000};
-    ajax_request(req_type, req_url, req_data);
+    ajax_request_custom(req_type, req_url, req_data);
 }
 
 /*客户列表-查找*/
@@ -27,12 +27,12 @@ function search_custom_list(){
     var req_type = "POST";
     var req_url = "/api/custom/list";
     var req_data = {"page":1, "length":1000, "status":status, "search": search};
-    ajax_request(req_type, req_url, req_data);
+    ajax_request_custom(req_type, req_url, req_data);
 }
 
 
 /* ajax 请求客户列表数据*/
-function ajax_request(req_type, req_url, req_data){
+function ajax_request_custom(req_type, req_url, req_data){
 
     $.ajax({
         type: req_type,
@@ -296,39 +296,6 @@ function add_custom(){
     });
 }
 
-
-/*下拉框*/
-$(function(){
-    $(".select").each(function(){
-        var s = $(this);
-        var z = parseInt(s.css("z-index"));
-        var dt = $(this).children("dt");
-        var dd = $(this).children("dd");
-        var _show = function(){
-            dd.slideDown(200);
-            dt.addClass("cur");
-            s.css("z-index",z+1);
-        };
-        var _hide = function(){
-            dd.slideUp(200);
-            dt.removeClass("cur");
-            s.css("z-index",z);
-        };
-
-        dt.click(function(){
-            dd.is(":hidden")?_show():_hide();
-        });
-
-        dd.find("a").click(function(){
-            dt.html($(this).html());
-            _hide();
-        });
-
-        $("body").click(function(i){
-            !$(i.target).parents(".select").first().is(s) ? _hide():"";
-        });
-    });
-});
 
 
 /*获取URL传过来的参数*/
