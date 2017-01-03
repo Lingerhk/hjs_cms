@@ -1,0 +1,40 @@
+#!/usr/bin/expect --
+
+if { $argc < 2 } {
+  send_user "Usage: $argv0 \[PASSWD\] \[SSH_CMD\] \n"
+  send_user "  \[PASSWD\]  - password for incoming ssh login\n"
+  send_user "  \[SSH_CMD\] - ssh command to be executed, scp also supported\n"
+  exit
+}
+
+set passwd [lindex $argv 0]
+
+set timeout 1800
+
+eval spawn -nottyinit -noecho [lrange $argv 1 end]
+
+expect {
+	"*yes/no*"    { 
+		send "yes\r"
+		exp_continue 
+	}
+
+	"*password:*" { 
+		send "${passwd}\r"; exp_continue 
+	}
+
+	"*Password:*" { 
+		send "${passwd}\r"; exp_continue 
+	}
+
+	"failed"      { 
+		exit 1 
+	}
+
+	timeout abort
+}
+
+
+catch wait result
+
+exit [lindex $result 3]
