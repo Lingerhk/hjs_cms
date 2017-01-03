@@ -1,7 +1,7 @@
 #### 自动化部署脚本
 
 
-##### 脚本说明：
+##### 1. 脚本说明：
 
 * nginx/ nginx配置
 * supervisor/ supervisor配置
@@ -13,12 +13,13 @@
 
 
 
-##### 自动化部署
+##### 2. 自动化部署
 ```
 python publish_hjs_cms.py deploy $srv_ip
 ```
 
 注意：
-1. 在publish_hjs_cms.py脚本最后有重启supervisor的命令，这需要root权限才可以重启！
-2. 日志目录配置在根目录下logs下，重新部署后可能需要创建此目录
+1. 执行publish_hjs_cms.py之前需要将/tools/ssh.exp 添加到本地环变量中
+2. 在publish_hjs_cms.py脚本最后有重启supervisor的命令，这需要root权限才可以重启！
+3. 日志目录配置在根目录下logs下，重新部署后可能需要创建此目录
 
