@@ -106,11 +106,14 @@ class HjsOrder:
             order_info.oid = int(item['oid'])
             order_info.cid = int(item['cid'])
             order_info.name = item['name']
+            order_info.otype = item['otype']
+            order_info.status = item['status']
             order_info.remark = item['remark']
             
             bRet, custom_info = HjsCustomDao.query_node_by_cid(order_info.cid)
-            order_info.address = custom_info['address'] if bRet else ''
-            order_info.phone = custom_info['phone'] if bRet else ''
+            order_info.address = custom_info['address'] if bRet else '--'
+            order_info.phone = custom_info['phone'] if bRet else '--'
+            order_info.ctype = custom_info['ctype'] if bRet else '--'
 
             orderList.append(order_info)
 
