@@ -188,11 +188,61 @@ config_web_suite()
 {
     cur_module="config_web_suite"
     log_to_file "[*] ${cur_module}"
+    
+    #deploy source code
+    thisPath=`pwd`
+    backup_file /home/project/hjs_cms/src
+    cp $thisPath/../src /home/project/hjs_cms -R
 
+    chown -R s0nnet:s0nnet /home/project/hjs_cms
 
-
+    log_result ${cur_module} 0
 }
 
+# 启动web服务
+start_services()
+{
+    cur_module="start_services"
+    log_to_file "[*] ${cur_module}"
+
+    service_list=(
+        "mysql"
+        "nginx"
+        "supervisor"
+    )
+    length=${#service_list[@]}
+
+    for ((i=0; i<$length; i++))
+    do
+        service=$(service_list[$i])
+        service $service start
+    done
+
+    log_result ${cur_module} 0
+}
+
+# 重启web服务
+restart_services()
+{
+    cur_module="restart_services"
+    log_to_file "[*] ${cur_module}"
+
+    service_list=(
+        "mysql"
+        "nginx"
+        "supervisor"
+    )
+    length=${#service_list[@]}
+
+    for ((i=0; i<$length; i++))
+    do
+        service=${service_list[$i]}
+        service $service stop
+        service $service start
+    done
+
+    log_result ${cur_module} 0
+}
 
 install_hjs_cms()
 {
